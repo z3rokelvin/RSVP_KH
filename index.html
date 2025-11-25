@@ -5,19 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kelvin & Hesther Wedding</title>
     
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" href="favicon.png"> <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Noto+Serif+KR:wght@200;300;400;600&family=Noto+Serif+SC:wght@200;300;400;600&display=swap" rel="stylesheet">
     
     <style>
         :root {
             /* === 高级配色方案 === */
-            --bg-color: #f9f8f6;       
-            --card-bg: #ffffff;        
-            --main-gold: #b4975a;      
-            --text-dark: #2c2c2c;      
-            --text-light: #888888;     
-            --border-color: #e6e2d8;   
+            --bg-color: #f9f8f6;       /* 极淡的暖灰背景 */
+            --card-bg: #ffffff;        /* 纯白卡片背景 */
+            --main-gold: #b4975a;      /* 古董金 (用于重点) */
+            --text-dark: #2c2c2c;      /* 深炭灰 (用于正文) */
+            --text-light: #888888;     /* 浅灰 (用于辅助文字) */
+            --border-color: #e6e2d8;   /* 装饰线颜色 */
         }
 
         html { scroll-behavior: smooth; }
@@ -99,17 +100,13 @@
         .delay-2 { animation-delay: 0.6s; }
         .delay-3 { animation-delay: 0.9s; }
 
-        /* =========================================
-           新增：优雅微光动画 (Elegant Glow Animation)
-        ========================================= */
+        /* 微光动画 (Elegant Glow) */
         @keyframes elegantGlow {
             0%, 100% {
-                /* 初始状态：微弱的白光和一点点金光 */
                 text-shadow: 0 0 5px rgba(255, 255, 255, 0.2), 0 0 10px rgba(180, 151, 90, 0.1);
                 opacity: 0.9;
             }
             50% {
-                /* 中间状态：光晕稍微扩散，更亮一点 */
                 text-shadow: 0 0 10px rgba(255, 255, 255, 0.4), 0 0 20px rgba(180, 151, 90, 0.3);
                 opacity: 1;
             }
@@ -125,13 +122,8 @@
         h1 { font-size: 3.5rem; margin: 15px 0; font-weight: 300; font-style: italic; line-height: 1.1; }
         body.lang-cn h1, body.lang-ko h1 { font-size: 2.4rem; font-style: normal; font-weight: 300; letter-spacing: 5px; }
         
-        /* 修改 Subtitle，应用微光动画 */
         .subtitle { 
-            font-size: 0.8rem; 
-            letter-spacing: 4px; 
-            text-transform: uppercase; 
-            font-weight: 400;
-            /* 应用动画：4秒一次，无限循环，平滑过渡 */
+            font-size: 0.8rem; letter-spacing: 4px; text-transform: uppercase; font-weight: 400;
             animation: elegantGlow 4s ease-in-out infinite;
         }
 
@@ -210,6 +202,7 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             overflow: hidden;
         }
+        .root_daum_roughmap .wrap_map { width: 100% !important; }
     </style>
 </head>
 <body class="lang-en">
@@ -345,6 +338,7 @@
             hotelName: "BMK Convention",
             hallName: "4F Astin Hall",
             address: "133 Seomun-ro, Jung-gu, Daejeon",
+            mapBtn: "View Map",
             
             rsvpTitle: "CONTACT",
             rsvpMsg: "Please contact us for any inquiries",
@@ -374,6 +368,7 @@
             hotelName: "BMK 婚宴中心 (BMK컨벤션)",
             hallName: "4楼 Astin Hall",
             address: "大田广域市 中区 西门路 133",
+            mapBtn: "查看地图",
             
             rsvpTitle: "联系我们",
             rsvpMsg: "如有任何疑问，请联系我们",
@@ -403,6 +398,7 @@
             hotelName: "BMK 웨딩컨벤션",
             hallName: "4층 아스틴홀",
             address: "대전 중구 서문로 133",
+            mapBtn: "지도 보기",
             
             rsvpTitle: "마음 전하실 곳",
             rsvpMsg: "참석이 어려우신 분들을 위해 계좌번호를 안내해 드립니다.",
