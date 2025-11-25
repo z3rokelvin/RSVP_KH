@@ -12,12 +12,12 @@
     <style>
         :root {
             /* === 高级配色方案 === */
-            --bg-color: #f9f8f6;       /* 极淡的暖灰背景 */
-            --card-bg: #ffffff;        /* 纯白卡片背景 */
-            --main-gold: #b4975a;      /* 古董金 (用于重点) */
-            --text-dark: #2c2c2c;      /* 深炭灰 (用于正文) */
-            --text-light: #888888;     /* 浅灰 (用于辅助文字) */
-            --border-color: #e6e2d8;   /* 装饰线颜色 */
+            --bg-color: #f9f8f6;       
+            --card-bg: #ffffff;        
+            --main-gold: #b4975a;      
+            --text-dark: #2c2c2c;      
+            --text-light: #888888;     
+            --border-color: #e6e2d8;   
         }
 
         html { scroll-behavior: smooth; }
@@ -92,12 +92,28 @@
             min-height: 100vh; padding-bottom: 80px;
         }
 
-        /* 动画 */
+        /* 动画定义 */
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
         .fade-in { animation: fadeInUp 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards; opacity: 0; }
         .delay-1 { animation-delay: 0.3s; }
         .delay-2 { animation-delay: 0.6s; }
         .delay-3 { animation-delay: 0.9s; }
+
+        /* =========================================
+           新增：优雅微光动画 (Elegant Glow Animation)
+        ========================================= */
+        @keyframes elegantGlow {
+            0%, 100% {
+                /* 初始状态：微弱的白光和一点点金光 */
+                text-shadow: 0 0 5px rgba(255, 255, 255, 0.2), 0 0 10px rgba(180, 151, 90, 0.1);
+                opacity: 0.9;
+            }
+            50% {
+                /* 中间状态：光晕稍微扩散，更亮一点 */
+                text-shadow: 0 0 10px rgba(255, 255, 255, 0.4), 0 0 20px rgba(180, 151, 90, 0.3);
+                opacity: 1;
+            }
+        }
 
         /* Hero */
         .hero { position: relative; width: 100%; height: 90vh; overflow: hidden; }
@@ -108,7 +124,16 @@
         }
         h1 { font-size: 3.5rem; margin: 15px 0; font-weight: 300; font-style: italic; line-height: 1.1; }
         body.lang-cn h1, body.lang-ko h1 { font-size: 2.4rem; font-style: normal; font-weight: 300; letter-spacing: 5px; }
-        .subtitle { font-size: 0.8rem; letter-spacing: 4px; text-transform: uppercase; opacity: 0.9; font-weight: 400; }
+        
+        /* 修改 Subtitle，应用微光动画 */
+        .subtitle { 
+            font-size: 0.8rem; 
+            letter-spacing: 4px; 
+            text-transform: uppercase; 
+            font-weight: 400;
+            /* 应用动画：4秒一次，无限循环，平滑过渡 */
+            animation: elegantGlow 4s ease-in-out infinite;
+        }
 
         /* Section */
         .section { padding: 70px 30px; scroll-margin-top: 80px; }
@@ -239,10 +264,14 @@
                 new daum.roughmap.Lander({
                     "timestamp" : "1764037005479",
                     "key" : "crv6tdzjsz3",
-                    "mapWidth" : "100%", 
-                    "mapHeight" : "300"
+                    "mapWidth" : "640",
+                    "mapHeight" : "360"
                 }).render();
             </script>
+             <div style="display: flex; gap: 10px; justify-content: center; margin-top: 20px;">
+                <a href="https://map.naver.com/p/search/대전%20BMK컨벤션" target="_blank" style="text-decoration: none; border: 1px solid #ddd; padding: 8px 15px; border-radius: 5px; font-size: 0.75rem; color: #2db400; display: flex; align-items: center; gap: 5px; letter-spacing: 1px;">Naver Map</a>
+                <a href="https://map.kakao.com/link/search/BMK웨딩홀" target="_blank" style="text-decoration: none; border: 1px solid #ddd; padding: 8px 15px; border-radius: 5px; font-size: 0.75rem; color: #3c1e1e; background-color: #FEE500; display: flex; align-items: center; gap: 5px; letter-spacing: 1px;">Kakao Map</a>
+            </div>
         </div>
     </div>
 
