@@ -100,39 +100,66 @@
         .delay-2 { animation-delay: 0.6s; }
         .delay-3 { animation-delay: 0.9s; }
 
-        /* =========================================
-           修复并增强：微光动画 (Stronger Glow)
-        ========================================= */
         @keyframes elegantGlow {
             0%, 100% {
-                /* 暗状态：稍微透明，光晕收缩 */
-                text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
-                opacity: 0.7;
+                text-shadow: 0 0 5px rgba(255, 255, 255, 0.2), 0 0 10px rgba(180, 151, 90, 0.1);
+                opacity: 0.8;
             }
             50% {
-                /* 亮状态：完全不透明，光晕扩散，加入金色光泽 */
-                text-shadow: 0 0 20px rgba(255, 255, 255, 1), 0 0 35px rgba(180, 151, 90, 0.8);
+                text-shadow: 0 0 20px rgba(255, 255, 255, 0.9), 0 0 35px rgba(180, 151, 90, 0.7);
                 opacity: 1;
             }
         }
 
-        /* Hero */
-        .hero { position: relative; width: 100%; height: 90vh; overflow: hidden; }
-        .hero img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.9); }
-        .hero-text {
-            position: absolute; bottom: 80px; left: 0; width: 100%;
-            color: white; text-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        /* ========================================================== 
+           FIX: Hero Image Overlay & Z-Index
+           修复：添加遮罩层，确保文字在图片之上，且光晕可见
+        ========================================================== */
+        .hero { 
+            position: relative; 
+            width: 100%; 
+            height: 90vh; 
+            overflow: hidden; 
         }
+        .hero img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            filter: brightness(0.95); /* 图片本身稍微调暗一点点 */
+            position: relative;
+            z-index: 0;
+        }
+        
+        /* 关键：渐变遮罩层 (让底部变暗，衬托发光字) */
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 45%; /* 遮罩覆盖底部 45% 的区域 */
+            background: linear-gradient(to top, rgba(0,0,0,0.5), transparent);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .hero-text {
+            position: absolute; 
+            bottom: 80px; 
+            left: 0; 
+            width: 100%;
+            color: white; 
+            /* 基础文字阴影，保证轮廓清晰 */
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5); 
+            z-index: 2; /* 确保文字在遮罩层之上 */
+        }
+        
         h1 { font-size: 3.5rem; margin: 15px 0; font-weight: 300; font-style: italic; line-height: 1.1; }
         body.lang-cn h1, body.lang-ko h1 { font-size: 2.4rem; font-style: normal; font-weight: 300; letter-spacing: 5px; }
         
         .subtitle { 
-            font-size: 0.9rem; /* 稍微加大一点让光效更明显 */
-            letter-spacing: 4px; 
-            text-transform: uppercase; 
-            font-weight: 400;
-            /* 应用动画：3秒一次 (加快一点节奏) */
-            animation: elegantGlow 3s ease-in-out infinite; 
+            font-size: 0.8rem; letter-spacing: 4px; text-transform: uppercase; font-weight: 400;
+            animation: elegantGlow 3s ease-in-out infinite;
         }
 
         /* Section */
