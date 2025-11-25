@@ -101,64 +101,69 @@
         .delay-3 { animation-delay: 0.9s; }
 
         @keyframes elegantGlow {
-            0%, 100% {
-                text-shadow: 0 0 5px rgba(255, 255, 255, 0.2), 0 0 10px rgba(180, 151, 90, 0.1);
-                opacity: 0.8;
-            }
-            50% {
-                text-shadow: 0 0 20px rgba(255, 255, 255, 0.9), 0 0 35px rgba(180, 151, 90, 0.7);
-                opacity: 1;
-            }
+            0%, 100% { text-shadow: 0 0 5px rgba(255, 255, 255, 0.3); opacity: 0.7; }
+            50% { text-shadow: 0 0 20px rgba(255, 255, 255, 0.9), 0 0 35px rgba(180, 151, 90, 0.7); opacity: 1; }
         }
 
         /* ========================================================== 
-           FIX: Hero Image Overlay & Z-Index
-           修复：添加遮罩层，确保文字在图片之上，且光晕可见
+           NEW: Hero Slideshow & Matte Glass Effect
         ========================================================== */
         .hero { 
             position: relative; 
             width: 100%; 
             height: 90vh; 
             overflow: hidden; 
-        }
-        .hero img { 
-            width: 100%; 
-            height: 100%; 
-            object-fit: cover; 
-            filter: brightness(0.95); /* 图片本身稍微调暗一点点 */
-            position: relative;
-            z-index: 0;
-        }
-        
-        /* 关键：渐变遮罩层 (让底部变暗，衬托发光字) */
-        .hero::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 45%; /* 遮罩覆盖底部 45% 的区域 */
-            background: linear-gradient(to top, rgba(0,0,0,0.5), transparent);
-            z-index: 1;
-            pointer-events: none;
+            background-color: #f0f0f0; /* Placeholder color */
         }
 
-        .hero-text {
-            position: absolute; 
-            bottom: 80px; 
-            left: 0; 
-            width: 100%;
-            color: white; 
-            /* 基础文字阴影，保证轮廓清晰 */
-            text-shadow: 0 2px 10px rgba(0,0,0,0.5); 
-            z-index: 2; /* 确保文字在遮罩层之上 */
+        /* Slideshow Container */
+        .hero-slideshow {
+            position: absolute; top:0; left:0; width:100%; height:100%; z-index: 0;
         }
+        /* Individual Slides */
+        .slide {
+            position: absolute; top:0; left:0; width:100%; height:100%;
+            object-fit: cover;
+            opacity: 0; /* Hidden by default */
+            transition: opacity 2s ease-in-out; /* Smooth crossfade duration */
+            filter: brightness(0.9); /* Slight dim for text readability */
+        }
+        /* Active Slide */
+        .slide.active { opacity: 1; }
+
+        /* Container for the glass box to center it */
+        .hero-text-container {
+            position: absolute;
+            bottom: 0; left: 0; width: 100%; height: 100%;
+            display: flex; justify-content: center; align-items: flex-end; /* Position at bottom center */
+            padding-bottom: 80px; z-index: 2;
+            pointer-events: none; /* Pass clicks through */
+        }
+
+        /* === THE MATTE GLASS BOX === */
+        .glass-box {
+            /* 核心：半透明白色背景 + 背景模糊滤镜 */
+            background: rgba(255, 255, 255, 0.15); 
+            backdrop-filter: blur(15px) saturate(120%); /* 磨砂效果关键 */
+            -webkit-backdrop-filter: blur(15px) saturate(120%); /* Safari 支持 */
+            
+            border: 1px solid rgba(255, 255, 255, 0.3); /* 微妙的白边框 */
+            padding: 30px 60px;
+            border-radius: 20px; /* 圆角 */
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15); /* 柔和阴影增加立体感 */
+            
+            color: white;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.2); /* 文字阴影，增加清晰度 */
+            pointer-events: auto; /* 恢复文字区域的交互 */
+            max-width: 85%; /* 防止手机上太宽 */
+        }
+
         
         h1 { font-size: 3.5rem; margin: 15px 0; font-weight: 300; font-style: italic; line-height: 1.1; }
         body.lang-cn h1, body.lang-ko h1 { font-size: 2.4rem; font-style: normal; font-weight: 300; letter-spacing: 5px; }
         
         .subtitle { 
-            font-size: 0.8rem; letter-spacing: 4px; text-transform: uppercase; font-weight: 400;
+            font-size: 0.9rem; letter-spacing: 4px; text-transform: uppercase; font-weight: 400;
             animation: elegantGlow 3s ease-in-out infinite;
         }
 
@@ -261,10 +266,18 @@
 <div class="container">
 
     <div id="sec-hero" class="hero fade-in">
-        <img src="main_photo.jpg" alt="Cover">
-        <div class="hero-text">
-            <p class="subtitle" id="txt-hero-sub">SAVE THE DATE</p>
-            <h1 id="txt-hero-names">Kelvin<br>& Hesther</h1>
+        <div class="hero-slideshow">
+            <img src="cover1.jpg" class="slide active" alt="Cover 1"> <img src="cover2.jpg" class="slide" alt="Cover 2">
+            <img src="cover3.jpg" class="slide" alt="Cover 3">
+            <img src="cover4.jpg" class="slide" alt="Cover 4">
+            <img src="cover5.jpg" class="slide" alt="Cover 5">
+            </div>
+
+        <div class="hero-text-container">
+            <div class="glass-box">
+                <p class="subtitle" id="txt-hero-sub">SAVE THE DATE</p>
+                <h1 id="txt-hero-names">Kelvin<br>& Hesther</h1>
+            </div>
         </div>
     </div>
 
@@ -546,6 +559,21 @@
     function setActive(el) {
         document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
         el.classList.add('active');
+    }
+
+    // --- Hero Slideshow Logic ---
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const slideInterval = 4000; // 4 seconds
+
+    function nextSlide() {
+        slides[currentSlide].classList.remove('active');
+        currentSlide = (currentSlide + 1) % slides.length; // Loop back to 0
+        slides[currentSlide].classList.add('active');
+    }
+
+    if (slides.length > 1) {
+         setInterval(nextSlide, slideInterval);
     }
 
     window.onload = function() {
