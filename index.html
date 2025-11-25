@@ -100,10 +100,8 @@
         .delay-2 { animation-delay: 0.6s; }
         .delay-3 { animation-delay: 0.9s; }
 
-        /* 移除之前的 elegantGlow 动画定义 */
-
         /* ========================================================== 
-           Hero Slideshow & Matte Glass & Outlined Text
+           Hero Slideshow & FULL Matte Glass overlay
         ========================================================== */
         .hero { 
             position: relative; 
@@ -123,55 +121,60 @@
             object-fit: cover;
             opacity: 0;
             transition: opacity 2s ease-in-out;
-            filter: brightness(0.9);
+            /* filter: brightness(0.9); Removed brightness dimming since we have a full glass cover now */
         }
         /* Active Slide */
         .slide.active { opacity: 1; }
 
-        /* Container for the glass box */
+        /* Container for the glass box (Center align) */
         .hero-text-container {
             position: absolute;
-            bottom: 0; left: 0; width: 100%; height: 100%;
-            display: flex; justify-content: center; align-items: flex-end;
-            padding-bottom: 80px; z-index: 2;
+            top: 0; left: 0; width: 100%; height: 100%;
+            display: flex; justify-content: center; align-items: center;
+            padding: 0; /* Removed padding */
+            z-index: 2;
             pointer-events: none;
         }
 
-        /* === THE MATTE GLASS BOX === */
+        /* === THE FULL SCREEN MATTE GLASS LAYER === */
         .glass-box {
-            background: rgba(255, 255, 255, 0.15); 
-            backdrop-filter: blur(5px) saturate(120%);
-            -webkit-backdrop-filter: blur(5px) saturate(120%);
+            width: 100%; height: 100%; /* Full coverage */
+            display: flex; flex-direction: column; justify-content: center; align-items: center; /* Center text inside */
+
+            /* Slightly more transparent white background for full screen */
+            background: rgba(255, 255, 255, 0.1); 
             
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            padding: 30px 60px;
-            border-radius: 20px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15);
+            /* ▼▼▼ 关键修改: 1px Blur ▼▼▼ */
+            backdrop-filter: blur(1px) saturate(110%);
+            -webkit-backdrop-filter: blur(1px) saturate(110%);
+            /* ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲ */
+            
+            /* Removed borders, radius and shadow for full screen overlay look */
+            border: none;
+            border-radius: 0;
+            box-shadow: none;
             
             color: white;
-            /* 移除了之前的柔和阴影，让描边更清晰 */
-            /* text-shadow: 0 2px 5px rgba(0,0,0,0.2); */
             pointer-events: auto;
-            max-width: 85%;
+            max-width: 100%;
         }
 
         /* Names Styling with Black Outline */
         h1 { 
             font-size: 3.5rem; margin: 15px 0; font-weight: 300; font-style: italic; line-height: 1.1;
             color: white;
-            -webkit-text-stroke: 1px black; /* 黑色描边 */
+            -webkit-text-stroke: 1px black; 
         }
         body.lang-cn h1, body.lang-ko h1 { 
             font-size: 2.4rem; font-style: normal; font-weight: 300; letter-spacing: 5px; 
-            -webkit-text-stroke: 1px black; /* 中韩文也加上描边 */
+            -webkit-text-stroke: 1px black;
         }
         
-        /* Subtitle Styling with Thinner Black Outline & No Animation */
+        /* Subtitle Styling with Thinner Black Outline */
         .subtitle { 
             font-size: 0.9rem; letter-spacing: 4px; text-transform: uppercase; font-weight: 400;
             color: white;
-            -webkit-text-stroke: 0.5px black; /* 较细的黑色描边 */
-            /* animation: none;  已移除动画 */
+            -webkit-text-stroke: 0.5px black;
         }
 
         /* Section */
@@ -572,7 +575,7 @@
     // --- Hero Slideshow Logic ---
     let currentSlide = 0;
     const slides = document.querySelectorAll('.slide');
-    const slideInterval = 4000; // 4 seconds
+    const slideInterval = 8000; // 4 seconds
 
     function nextSlide() {
         slides[currentSlide].classList.remove('active');
@@ -591,5 +594,3 @@
 
 </body>
 </html>
-
-
