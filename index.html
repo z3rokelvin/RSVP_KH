@@ -100,13 +100,18 @@
         .delay-2 { animation-delay: 0.6s; }
         .delay-3 { animation-delay: 0.9s; }
 
+        /* =========================================
+           修复并增强：微光动画 (Stronger Glow)
+        ========================================= */
         @keyframes elegantGlow {
             0%, 100% {
-                text-shadow: 0 0 5px rgba(255, 255, 255, 0.2), 0 0 10px rgba(180, 151, 90, 0.1);
-                opacity: 0.9;
+                /* 暗状态：稍微透明，光晕收缩 */
+                text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+                opacity: 0.7;
             }
             50% {
-                text-shadow: 0 0 10px rgba(255, 255, 255, 0.4), 0 0 20px rgba(180, 151, 90, 0.3);
+                /* 亮状态：完全不透明，光晕扩散，加入金色光泽 */
+                text-shadow: 0 0 20px rgba(255, 255, 255, 1), 0 0 35px rgba(180, 151, 90, 0.8);
                 opacity: 1;
             }
         }
@@ -122,8 +127,12 @@
         body.lang-cn h1, body.lang-ko h1 { font-size: 2.4rem; font-style: normal; font-weight: 300; letter-spacing: 5px; }
         
         .subtitle { 
-            font-size: 0.8rem; letter-spacing: 4px; text-transform: uppercase; font-weight: 400;
-            animation: elegantGlow 4s ease-in-out infinite;
+            font-size: 0.9rem; /* 稍微加大一点让光效更明显 */
+            letter-spacing: 4px; 
+            text-transform: uppercase; 
+            font-weight: 400;
+            /* 应用动画：3秒一次 (加快一点节奏) */
+            animation: elegantGlow 3s ease-in-out infinite; 
         }
 
         /* Section */
