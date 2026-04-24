@@ -95,10 +95,11 @@
     </style>
 </head>
 <body class="lang-en">
+    
+<button id="startMusicBtn">🎵 Play Background Music</button>
 
-<audio id="bgMusic" autoplay loop>
+<audio id="bgMusic" loop>
     <source src="https://archive.org/download/PachelbelCanonInDMajor/Pachelbel_%20Canon%20-%20In%20D%20Major.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
 </audio>
 
 <div class="music-control" onclick="toggleMusic()" id="musicBtn">
@@ -187,7 +188,7 @@
 
 <script>
     // --- 1. CONFIGURATION (Replace FILE_IDs with yours) ---
-    const driveBase = "https://drive.google.com/uc?export=view&id=";
+    const driveBase = "https://drive.google.com/thumbnail?id=";
     
     // 5 Photos for the top slideshow
     const heroIDs = ["1GXaSEL2Z5kswvG_FlgjW8EA1V0DM1RVo", "13IeGNdNIQGqnofcKEFhRQL17TTc4jzqX", "1GaQ3bhjRzF2ey_sbbetmuLutePJyMYHV", "1b568hISmjQSsEpXXKLWkxJBBOv6iFKDu", "1D7Bu6SCpm5f39znbLRHGJnukOUrdwWK2"];
@@ -332,6 +333,14 @@
         setLanguage('en');
         updateRandomGallery();
     };
+
+    const playBtn = document.getElementById('startMusicBtn');
+    const audio = document.getElementById('bgMusic');
+
+    playBtn.addEventListener('click', function() {
+        audio.play(); 
+        playBtn.style.display = 'none'; // Hides the button after clicking
+    });
 </script>
 
 </body>
