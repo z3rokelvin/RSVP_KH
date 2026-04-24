@@ -180,47 +180,51 @@
             flex-direction: column;
             gap: 15px;
             z-index: 1100;
+            align-items: center;
         }
         
         .nav-dot {
-            width: 8px;
-            height: 8px;
+            width: 4px;  /* Made really, really small */
+            height: 4px;
             border-radius: 50%;
-            background-color: rgba(180, 151, 90, 0.3); /* Muted gold */
+            background-color: transparent; /* Made the button transparent */
+            border: 1px solid rgba(180, 151, 90, 0.6); /* Kept a faint gold ring so they are clickable */
             transition: all 0.3s ease;
             cursor: pointer;
-            position: relative; /* Crucial for positioning the text */
+            position: relative; 
         }
         
         /* --- The Tooltip Text Setup --- */
         .nav-dot::after {
-            content: attr(data-label); /* Pulls the text from the HTML */
+            content: attr(data-label); 
             position: absolute;
-            right: 20px; /* Positions it to the left of the dot */
+            right: 10px; /* Moved much closer to the dot (was 20px) */
             top: 50%;
             transform: translateY(-50%);
-            background-color: var(--main-gold);
-            color: #fff;
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-size: 0.7rem;
-            font-family: 'Noto Serif KR', serif; /* Keeps font consistent */
+            background-color: transparent; /* Removed the solid background box */
+            color: var(--main-gold); /* Text now matches your section title color */
+            padding: 0; 
+            font-size: 0.65rem;
+            font-family: 'Noto Serif KR', serif; 
+            font-weight: 600; /* Added slight weight so it reads well without a background */
+            letter-spacing: 1px;
             white-space: nowrap;
-            opacity: 0; /* Hidden by default */
-            pointer-events: none; /* Stops it from blocking clicks */
+            opacity: 0; 
+            pointer-events: none; 
             transition: opacity 0.3s ease, transform 0.3s ease;
         }
         
         /* --- When Active --- */
         .nav-dot.active {
-            background-color: var(--main-gold); /* Solid gold dot */
-            transform: scale(1.5); /* Makes the dot bigger */
+            background-color: var(--main-gold); /* Fills in with solid gold when active */
+            border-color: var(--main-gold);
+            transform: scale(1.5); 
         }
         
         /* Show the text ONLY when active */
         .nav-dot.active::after {
-            opacity: 1; /* Make visible */
-            /* Adjusts for the dot scaling so it doesn't overlap */
+            opacity: 1; 
+            /* Counteracts the dot scaling so the text stays perfectly sized */
             transform: translateY(-50%) scale(0.66); 
         }
     </style>
@@ -315,7 +319,7 @@
 
     <div class="footer">Thank you for coming</div>
     <div class="side-nav">
-        <a href="#sec-hero" class="nav-dot active" data-label="Cover"></a>
+        <a href="#sec-hero" class="nav-dot active" data-label=" "></a>
         <a href="#sec-invite" class="nav-dot" data-label="Invitation"></a>
         <a href="#sec-date" class="nav-dot" data-label="Date"></a>
         <a href="#sec-gallery" class="nav-dot" data-label="Gallery"></a>
