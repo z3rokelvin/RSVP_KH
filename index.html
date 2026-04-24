@@ -487,7 +487,35 @@
             container.appendChild(star);
         }
     }
+    
+    // --- Autoplay Music on First Interaction ---
+    function enableAutoplay() {
+        const audio = document.getElementById('bgMusic');
+        
+        // If it's already playing, do nothing
+        if (!audio.paused) return; 
 
+        // Attempt to play the audio
+        audio.play().then(() => {
+            // Success! Update the button icon to the "playing" state
+            const svgIcon = document.getElementById('musicSvg');
+            const playPath = "M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z";
+            svgIcon.innerHTML = `<path d="${playPath}"/>`;
+            
+            // Once it successfully starts, stop listening for the first touch/scroll
+            window.removeEventListener('scroll', enableAutoplay);
+            window.removeEventListener('touchstart', enableAutoplay);
+            document.removeEventListener('click', enableAutoplay);
+        }).catch((error) => {
+            // If the browser blocks it (e.g., Apple's strict policies), 
+            // it will silently fail and try again on the next scroll or tap.
+        });
+    }
+
+    // Listen for any interaction to trigger the music
+    window.addEventListener('scroll', enableAutoplay);
+    window.addEventListener('touchstart', enableAutoplay);
+    document.addEventListener('click', enableAutoplay);
     // --- On Page Load ---
     window.addEventListener('load', () => {
         setLanguage('en');
