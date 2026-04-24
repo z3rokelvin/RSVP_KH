@@ -101,7 +101,7 @@
         .gallery-slideshow {
             position: relative;
             width: 100%;
-            height: 450px; /* Adjust height as needed */
+            height: 450px; 
             overflow: hidden;
             background-color: transparent;
         }
@@ -112,9 +112,9 @@
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: contain; /* No cropping */
+            object-fit: contain; 
             opacity: 0;
-            transition: opacity 2s ease-in-out; /* Match cover transition */
+            transition: opacity 2s ease-in-out; 
         }
         
         .gallery-slide.active {
@@ -135,34 +135,33 @@
         .contact-card { flex: 1; padding: 20px 5px; border: 1px solid var(--border-color); border-radius: 4px; }
         .bank-container { margin-top: 10px; background-color: #fbfbfb; padding: 15px 5px; border: 1px solid #f0f0f0; cursor: pointer; border-radius: 4px; font-size: 0.7rem; }
         #txt-groom-name, #txt-bride-name {
-            font-size: 0.85rem !important;
+            font-size: 1.1rem !important;
             letter-spacing: 1px;
+            font-weight: 600;
         }
         .footer { scroll-snap-align: start; padding: 60px 20px; color: #ccc; font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; min-height: 20vh; display: flex; align-items: center; justify-content: center; }
 
         #toast { visibility: hidden; min-width: 200px; background-color: rgba(0,0,0,0.8); color: #fff; text-align: center; border-radius: 50px; padding: 10px; position: fixed; z-index: 2000; left: 50%; bottom: 30px; transform: translateX(-50%); opacity: 0; transition: 0.3s; }
         #toast.show { visibility: visible; opacity: 1; bottom: 50px; }
-        /* 1. Add vertical spacing specifically for the map */
+        
+        /* Map Spacing */
         .root_daum_roughmap { 
-            margin-top: 35px !important;    /* More space between phone/address and map */
-            margin-bottom: 30px !important; /* Space below the map before the next section */
+            margin-top: 35px !important;    
+            margin-bottom: 30px !important; 
             width: 100% !important; 
             height: 250px !important; 
-            border-radius: 12px;            /* Slightly rounder corners for a softer look */
+            border-radius: 12px;            
             overflow: hidden; 
-            box-shadow: 0 2px 10px rgba(0,0,0,0.03); /* Subtle shadow so it doesn't look flat */
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03); 
         }
         
-        /* 2. Adjust the section to accommodate the extra space */
         #sec-date {
             min-height: auto !important; 
             height: auto !important; 
-            /* Increased bottom padding to 80px for a cleaner finish */
             padding: 60px 30px 80px !important; 
             scroll-snap-align: start; 
         }
         
-        /* 3. Ensure the internal map elements stay locked to the box */
         .root_daum_roughmap .wrap_map, 
         .root_daum_roughmap .map {
             height: 250px !important;
@@ -237,7 +236,7 @@
             <div class="contact-wrapper">
                 <div class="contact-card">
                     <div style="font-size:0.7rem; color:#999;" id="txt-groom-role"></div>
-                    <div style="font-size:1.4rem; margin:5px 0;" id="txt-groom-name"></div>
+                    <div style="font-size:1.1rem; margin:5px 0;" id="txt-groom-name"></div>
                     <a href="" style="text-decoration:none; color:inherit; border-bottom:1px solid #eee;" id="txt-groom-phone"></a>
                     <div class="bank-container" onclick="copyText('txt-groom-bank')">
                         <div style="color:var(--main-gold); font-size:0.6rem;" id="txt-bank-label-1">ACCOUNT</div>
@@ -246,7 +245,7 @@
                 </div>
                 <div class="contact-card">
                     <div style="font-size:0.7rem; color:#999;" id="txt-bride-role"></div>
-                    <div style="font-size:1.4rem; margin:5px 0;" id="txt-bride-name"></div>
+                    <div style="font-size:1.1rem; margin:5px 0;" id="txt-bride-name"></div>
                     <a href="" style="text-decoration:none; color:inherit; border-bottom:1px solid #eee;" id="txt-bride-phone"></a>
                     <div class="bank-container" onclick="copyText('txt-bride-bank')">
                         <div style="color:var(--main-gold); font-size:0.6rem;" id="txt-bank-label-2">ACCOUNT</div>
@@ -263,10 +262,8 @@
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script charset="UTF-8" src="https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js"></script>
 <script>
-    // --- AOS Init ---
     AOS.init({ once: true });
 
-    // --- Configuration ---
     const driveBase = "https://drive.google.com/thumbnail?id=";
     const heroIDs = ["1GXaSEL2Z5kswvG_FlgjW8EA1V0DM1RVo", "1hPycAGXRUZZyX6A5jXiRB1o8sErs70xL", "1GaQ3bhjRzF2ey_sbbetmuLutePJyMYHV", "1b568hISmjQSsEpXXKLWkxJBBOv6iFKDu", "1D7Bu6SCpm5f39znbLRHGJnukOUrdwWK2"];
     const galleryIDs = ["1GXaSEL2Z5kswvG_FlgjW8EA1V0DM1RVo", "1eWlhaHNJrlJGh8xI8kZ6HuEMF1S9Q8CI", "1GaQ3bhjRzF2ey_sbbetmuLutePJyMYHV", "1b568hISmjQSsEpXXKLWkxJBBOv6iFKDu", "1D7Bu6SCpm5f39znbLRHGJnukOUrdwWK2", "1hPycAGXRUZZyX6A5jXiRB1o8sErs70xL", "16_yfv3b63vRtaAIgYuiIC9aT1puDiV_F", "1WWPAEiwmwveFncsN_RudMWCMFxHPB_2y", "1HwiNS_ZMCr3QGosK6hSfdlzUPzqNc84U", "1z4N4peyLPeZW4b2h7SCRKSOFKZwPrt_X", "1molwjz6XvtFdUW-4aQzDe-MrzePwgA9_", "1rq5TETIVfMhEHNqn3R7sjWTK4mfrs6n0", "13IeGNdNIQGqnofcKEFhRQL17TTc4jzqX"];
@@ -285,7 +282,7 @@
             heroNames: "李汉勇<br>& 具贤淑", inviteTitle: "诚挚邀请",
             inviteBody: "<p>两姓联姻，一堂缔约。</p><p>诚挚邀请您见证我们的幸福时刻。</p><p style='font-size: 0.95rem; margin-top: 10px; color: #666;'><br><br><br><b>李炳雄 · 余玲凤</b> 之长男 <b>汉勇</b> <br><b>具海龙 · 崔粉祚</b> 之唯嫒 <b>贤淑</b></p>",
             dateTitle: "婚礼吉日", dateDisplay: "2026年 7月 4日", timeDisplay: "星期六 下午 5:00",
-            days: "天", hours: "时", mins: "分", secs: "秒", hotelName: "BMK 婚宴中心", hotelPhone: "042-334-1000", address: "大田广域市 中区 西门로 133",
+            days: "天", hours: "时", mins: "分", secs: "秒", hotelName: "BMK 婚宴中心", hotelPhone: "042-334-1000", address: "大田广域市 中区 西门路 133",
             rsvpTitle: "联系我们", groomRole: "新郎", groomName: "李汉勇", groomPhone: "010-8386-1680", groomBank: "企业银行 010-8386-1680",
             brideRole: "新娘", brideName: "具贤淑", bridePhone: "010-9506-3160", brideBank: "韩亚银行 627-910204-57907",
             bankLabel: "礼金账户", copyMsg: "已复制"
@@ -341,7 +338,7 @@
         document.getElementById('txt-bank-label-2').innerText = t.bankLabel;
     }
 
-    // Initialize Hero
+    // --- Initializing the Cover Slideshow ---
     const heroCont = document.getElementById('hero-container');
     heroIDs.forEach((id, index) => {
         const img = document.createElement('img');
@@ -360,7 +357,7 @@
         }
     }, 5000);
 
-    // Initialize Gallery
+    // --- Initializing the Gallery Slideshow ---
     const galleryCont = document.getElementById('gallery-container');
     galleryIDs.forEach((id, index) => {
         const img = document.createElement('img');
@@ -373,13 +370,14 @@
     function playGallery() {
         const slides = document.querySelectorAll('.gallery-slide');
         if (slides.length === 0) return;
+        
         slides[galleryIdx].classList.remove('active');
         galleryIdx = (galleryIdx + 1) % slides.length;
         slides[galleryIdx].classList.add('active');
     }
     setInterval(playGallery, 5000);
 
-    // Countdown Logic
+    // --- Countdown Timer ---
     const weddingDate = new Date("2026-07-04T17:00:00").getTime();
     setInterval(() => {
         const now = new Date().getTime();
@@ -397,6 +395,7 @@
         `;
     }, 1000);
 
+    // --- Utility Functions ---
     function copyText(id) {
         const txt = document.getElementById(id).innerText;
         navigator.clipboard.writeText(txt).then(() => {
@@ -424,6 +423,7 @@
         }
     }
 
+    // --- On Page Load ---
     window.addEventListener('load', () => {
         setLanguage('en');
         createStars();
