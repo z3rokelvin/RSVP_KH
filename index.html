@@ -402,7 +402,7 @@
         document.getElementById('txt-hotel-phone').innerText = t.hotelPhone;
         document.getElementById('txt-rsvp-title').innerText = t.rsvpTitle;
         document.getElementById('txt-groom-role').innerText = t.groomRole;
-        document.getElementById('txt-groom-name').innerText = t.groomName;
+        document.getElementById('txt-groom-name').innerHTML = t.groomName;
         document.getElementById('txt-groom-phone').innerText = t.groomPhone;
         document.getElementById('txt-groom-phone').href = "tel:" + t.groomPhone.replace(/-/g, "");
         document.getElementById('txt-groom-bank').innerText = t.groomBank;
