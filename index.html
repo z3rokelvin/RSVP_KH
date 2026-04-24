@@ -9,6 +9,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Noto+Serif+KR:wght@200;300;400;600&family=Noto+Serif+SC:wght@200;300;400;600&display=swap" rel="stylesheet">
     
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
     <style>
         :root {
             --bg-color: #f9f8f6;       
@@ -47,15 +49,11 @@
             z-index: 999; 
             overflow: hidden;
         }
-        
         .star {
-            position: absolute;
-            background: #fff;
-            border-radius: 50%;
+            position: absolute; background: #fff; border-radius: 50%;
             box-shadow: 0 0 8px 2px rgba(255, 235, 180, 0.6); 
             animation: fall linear infinite;
         }
-        
         @keyframes fall {
             0% { transform: translateY(-20px) scale(0.5); opacity: 0; }
             10% { opacity: 0.8; }
@@ -73,15 +71,8 @@
             border: 1px solid var(--border-color);
         }
         .music-icon { width: 20px; height: 20px; fill: var(--main-gold); }
-        
-        /* The button spins continuously */
-        .rotating { 
-            animation: rotateMusic 4s linear infinite; 
-        }
-        @keyframes rotateMusic { 
-            from { transform: rotate(0deg); } 
-            to { transform: rotate(360deg); } 
-        }
+        .rotating { animation: rotateMusic 4s linear infinite; }
+        @keyframes rotateMusic { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
         /* --- Lang Bar --- */
         .lang-bar {
@@ -93,66 +84,21 @@
         .lang-btn { border: none; background: none; font-size: 0.85rem; color: #aaa; cursor: pointer; padding: 5px 0; letter-spacing: 2px; text-transform: uppercase; }
         .lang-btn.active { color: var(--main-gold); border-bottom: 1px solid var(--main-gold); }
 
-        /* --- UI Container --- */
-        .container { 
-            max-width: 480px; 
-            margin: 0 auto; 
-            background: #fff; 
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03); 
-        }
-
-        /* --- Hero Section (Snaps) --- */
-        .hero { 
-            position: relative; width: 100%; height: 100vh; 
-            overflow: hidden; background-color: #000; 
-            scroll-snap-align: start; 
-        }
+        /* --- UI Containers --- */
+        .container { max-width: 480px; margin: 0 auto; background: #fff; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03); }
+        .hero { position: relative; width: 100%; height: 100vh; overflow: hidden; background-color: #000; scroll-snap-align: start; }
         .hero-slideshow { position: absolute; top:0; left:0; width:100%; height:100%; z-index: 0; }
         .hero-slide { position: absolute; top:0; left:0; width:100%; height:100%; object-fit: cover; opacity: 0; transition: opacity 2s ease-in-out; }
         .hero-slide.active { opacity: 1; }
-        
-        .hero-overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            display: flex; flex-direction: column; justify-content: flex-end; align-items: center;
-            padding-bottom: 12vh; box-sizing: border-box; z-index: 2;
-            background: linear-gradient(to bottom, transparent 60%, rgba(0,0,0,0.4) 100%);
-            pointer-events: none;
-        }
+        .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; padding-bottom: 12vh; box-sizing: border-box; z-index: 2; background: linear-gradient(to bottom, transparent 60%, rgba(0,0,0,0.4) 100%); pointer-events: none; }
 
-        h1 { 
-            font-size: 3.5rem; margin: 0; font-weight: 300; font-style: italic; line-height: 1.1;
-            background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 45%, #ffffff 50%, #f0f0f0 55%, #ffffff 100%);
-            -webkit-background-clip: text; background-clip: text; color: transparent;
-            text-shadow: 0px 0px 12px rgba(255, 255, 255, 0.5);
-            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.4));
-        }
+        h1 { font-size: 3.5rem; margin: 0; font-weight: 300; font-style: italic; line-height: 1.1; background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 45%, #ffffff 50%, #f0f0f0 55%, #ffffff 100%); -webkit-background-clip: text; background-clip: text; color: transparent; text-shadow: 0px 0px 12px rgba(255, 255, 255, 0.5); filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.4)); }
 
-        /* --- Sections (Snaps & Fades) --- */
-        .section { 
-            min-height: 100vh;
-            padding: 100px 30px 60px; 
-            box-sizing: border-box;
-            
-            /* FIXED: display block prevents the map from squishing to 0 height */
-            display: block; 
-            
-            scroll-snap-align: start; 
-            opacity: 0; 
-            transition: opacity 1.5s ease-out; 
-            will-change: opacity;
-        }
-        .section.is-visible {
-            opacity: 1;
-        }
-
-        /* --- Section Content Styling --- */
+        .section { min-height: 100vh; padding: 100px 30px 60px; box-sizing: border-box; display: block; scroll-snap-align: start; }
         .section-title { font-size: 1.0rem; color: var(--main-gold); text-transform: uppercase; letter-spacing: 4px; font-weight: 600; margin-bottom: 0; }
         .divider-line { width: 1px; height: 40px; background-color: var(--main-gold); margin: 30px auto; opacity: 0.6; }
         
-        .gallery-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 0 10px;
-            transition: opacity 0.7s ease-in-out;
-        }
+        .gallery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 0 10px; transition: opacity 0.7s ease-in-out; }
         .gallery-grid img { width: 100%; height: 250px; object-fit: cover; border-radius: 2px; }
 
         .countdown { display: flex; justify-content: center; gap: 20px; margin: 40px 0; }
@@ -162,19 +108,10 @@
         .contact-wrapper { display: flex; gap: 10px; justify-content: center; margin-top: 20px; }
         .contact-card { flex: 1; padding: 20px 5px; border: 1px solid var(--border-color); border-radius: 4px; }
         .bank-container { margin-top: 10px; background-color: #fbfbfb; padding: 15px 5px; border: 1px solid #f0f0f0; cursor: pointer; border-radius: 4px; font-size: 0.8rem; }
-        
-        /* Footer snap */
-        .footer {
-            scroll-snap-align: start;
-            padding: 60px 20px; color: #ccc; font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase;
-            min-height: 20vh;
-            display: flex; align-items: center; justify-content: center;
-        }
+        .footer { scroll-snap-align: start; padding: 60px 20px; color: #ccc; font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; min-height: 20vh; display: flex; align-items: center; justify-content: center; }
 
         #toast { visibility: hidden; min-width: 200px; background-color: rgba(0,0,0,0.8); color: #fff; text-align: center; border-radius: 50px; padding: 10px; position: fixed; z-index: 2000; left: 50%; bottom: 30px; transform: translateX(-50%); opacity: 0; transition: 0.3s; }
         #toast.show { visibility: visible; opacity: 1; bottom: 50px; }
-        
-        /* Ensures the map always has enough height */
         .root_daum_roughmap { margin-top: 30px !important; width: 100% !important; min-height: 250px; border-radius: 8px; overflow: hidden; }
     </style>
 </head>
@@ -209,56 +146,59 @@
     </div>
 
     <div id="sec-invite" class="section">
-        <h2 class="section-title" id="txt-invite-title">INVITATION</h2>
-        <div class="divider-line"></div>
-        <div id="txt-invite-body"></div>
+        <div data-aos="fade-up" data-aos-duration="1000">
+            <h2 class="section-title" id="txt-invite-title">INVITATION</h2>
+            <div class="divider-line"></div>
+            <div id="txt-invite-body"></div>
+        </div>
     </div>
 
     <div id="sec-date" class="section" style="background-color: #fdfcfb;">
-        <h2 class="section-title" id="txt-date-title">THE WEDDING DAY</h2>
-        <div style="margin-top: 40px;">
-            <p style="font-size: 1.5rem; font-weight: 400; margin-bottom: 5px;" id="txt-date-display">July 4th, 2026</p>
-            <p style="color: #888; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px;" id="txt-time-display">Saturday 17:00 PM</p>
-        </div>
-        <div class="countdown" id="countdown"></div>
-        <div style="margin-top: 30px; padding-top: 30px; border-top: 1px solid #eee;">
-            <p style="font-size: 1.3rem; color: var(--main-gold); margin-bottom: 10px;" id="txt-hotel-name">BMK Convention</p>
-            <p id="txt-address" style="font-size: 0.85rem; color: #999;">133 Seomun-ro, Jung-gu, Daejeon</p>
-            
-            <div id="daumRoughmapContainer1764037005479" class="root_daum_roughmap root_daum_roughmap_landing"></div>
-            <script charset="UTF-8" class="daum_roughmap_loader_script" src="https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js"></script>
-            <script charset="UTF-8">
-                new daum.roughmap.Lander({"timestamp":"1764037005479","key":"crv6tdzjsz3","mapWidth":"640","mapHeight":"360"}).render();
-            </script>
+        <div data-aos="fade-up" data-aos-duration="1000">
+            <h2 class="section-title" id="txt-date-title">THE WEDDING DAY</h2>
+            <div style="margin-top: 40px;">
+                <p style="font-size: 1.5rem; font-weight: 400; margin-bottom: 5px;" id="txt-date-display"></p>
+                <p style="color: #888; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px;" id="txt-time-display"></p>
+            </div>
+            <div class="countdown" id="countdown"></div>
+            <div style="margin-top: 30px; padding-top: 30px; border-top: 1px solid #eee;">
+                <p style="font-size: 1.3rem; color: var(--main-gold); margin-bottom: 10px;" id="txt-hotel-name"></p>
+                <p id="txt-address" style="font-size: 0.85rem; color: #999;"></p>
+                <div id="daumRoughmapContainer1764037005479" class="root_daum_roughmap root_daum_roughmap_landing"></div>
+            </div>
         </div>
     </div>
 
     <div id="sec-gallery" class="section">
-        <h2 class="section-title" style="margin-bottom: 30px;">GALLERY</h2>
-        <div class="gallery-grid" id="random-gallery">
-            <img id="g-img-0"><img id="g-img-1"><img id="g-img-2"><img id="g-img-3">
+        <div data-aos="fade-up" data-aos-duration="1000">
+            <h2 class="section-title" style="margin-bottom: 30px;">GALLERY</h2>
+            <div class="gallery-grid" id="random-gallery">
+                <img id="g-img-0"><img id="g-img-1"><img id="g-img-2"><img id="g-img-3">
+            </div>
         </div>
     </div>
 
     <div id="sec-contact" class="section">
-        <h2 class="section-title" id="txt-rsvp-title">CONTACT</h2>
-        <div class="contact-wrapper">
-            <div class="contact-card">
-                <div style="font-size:0.7rem; color:#999;" id="txt-groom-role">GROOM</div>
-                <div style="font-size:1.4rem; margin:5px 0;" id="txt-groom-name">Kelvin</div>
-                <a href="tel:+821083861680" style="text-decoration:none; color:inherit; border-bottom:1px solid #eee;" id="txt-groom-phone">010-8386-1680</a>
-                <div class="bank-container" onclick="copyText('txt-groom-bank')">
-                    <div style="color:var(--main-gold); font-size:0.6rem;" id="txt-bank-label-1">ACCOUNT</div>
-                    <div id="txt-groom-bank">Shinhan 010-8386-1680</div>
+        <div data-aos="fade-up" data-aos-duration="1000">
+            <h2 class="section-title" id="txt-rsvp-title">CONTACT</h2>
+            <div class="contact-wrapper">
+                <div class="contact-card">
+                    <div style="font-size:0.7rem; color:#999;" id="txt-groom-role"></div>
+                    <div style="font-size:1.4rem; margin:5px 0;" id="txt-groom-name"></div>
+                    <a href="" style="text-decoration:none; color:inherit; border-bottom:1px solid #eee;" id="txt-groom-phone"></a>
+                    <div class="bank-container" onclick="copyText('txt-groom-bank')">
+                        <div style="color:var(--main-gold); font-size:0.6rem;" id="txt-bank-label-1">ACCOUNT</div>
+                        <div id="txt-groom-bank"></div>
+                    </div>
                 </div>
-            </div>
-            <div class="contact-card">
-                <div style="font-size:0.7rem; color:#999;" id="txt-bride-role">BRIDE</div>
-                <div style="font-size:1.4rem; margin:5px 0;" id="txt-bride-name">Hesther</div>
-                <a href="tel:+821095063160" style="text-decoration:none; color:inherit; border-bottom:1px solid #eee;" id="txt-bride-phone">010-9506-3160</a>
-                <div class="bank-container" onclick="copyText('txt-bride-bank')">
-                    <div style="color:var(--main-gold); font-size:0.6rem;" id="txt-bank-label-2">ACCOUNT</div>
-                    <div id="txt-bride-bank">Woori 627-910204-57907</div>
+                <div class="contact-card">
+                    <div style="font-size:0.7rem; color:#999;" id="txt-bride-role"></div>
+                    <div style="font-size:1.4rem; margin:5px 0;" id="txt-bride-name"></div>
+                    <a href="" style="text-decoration:none; color:inherit; border-bottom:1px solid #eee;" id="txt-bride-phone"></a>
+                    <div class="bank-container" onclick="copyText('txt-bride-bank')">
+                        <div style="color:var(--main-gold); font-size:0.6rem;" id="txt-bank-label-2">ACCOUNT</div>
+                        <div id="txt-bride-bank"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -267,21 +207,21 @@
     <div class="footer">Thank you for coming</div>
 </div>
 
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script charset="UTF-8" src="https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js"></script>
 <script>
-    // --- 1. CONFIGURATION ---
+    // --- AOS Init ---
+    AOS.init({ once: true });
+
+    // --- Configuration ---
     const driveBase = "https://drive.google.com/thumbnail?id=";
-    
     const heroIDs = ["1GXaSEL2Z5kswvG_FlgjW8EA1V0DM1RVo", "1eWlhaHNJrlJGh8xI8kZ6HuEMF1S9Q8CI", "1GaQ3bhjRzF2ey_sbbetmuLutePJyMYHV", "1b568hISmjQSsEpXXKLWkxJBBOv6iFKDu", "1D7Bu6SCpm5f39znbLRHGJnukOUrdwWK2"];
-    
-    const galleryIDs = [
-        "1hPycAGXRUZZyX6A5jXiRB1o8sErs70xL", "16_yfv3b63vRtaAIgYuiIC9aT1puDiV_F", "1WWPAEiwmwveFncsN_RudMWCMFxHPB_2y", "1HwiNS_ZMCr3QGosK6hSfdlzUPzqNc84U", 
-        "1z4N4peyLPeZW4b2h7SCRKSOFKZwPrt_X", "1molwjz6XvtFdUW-4aQzDe-MrzePwgA9_", "1rq5TETIVfMhEHNqn3R7sjWTK4mfrs6n0", "13IeGNdNIQGqnofcKEFhRQL17TTc4jzqX"
-    ];
+    const galleryIDs = ["1hPycAGXRUZZyX6A5jXiRB1o8sErs70xL", "16_yfv3b63vRtaAIgYuiIC9aT1puDiV_F", "1WWPAEiwmwveFncsN_RudMWCMFxHPB_2y", "1HwiNS_ZMCr3QGosK6hSfdlzUPzqNc84U", "1z4N4peyLPeZW4b2h7SCRKSOFKZwPrt_X", "1molwjz6XvtFdUW-4aQzDe-MrzePwgA9_", "1rq5TETIVfMhEHNqn3R7sjWTK4mfrs6n0", "13IeGNdNIQGqnofcKEFhRQL17TTc4jzqX"];
 
     const translations = {
         en: {
             heroNames: "Kelvin<br>& Hesther", inviteTitle: "INVITATION",
-            inviteBody: "<p>We are getting married.</p><p>Please join us as we start our new journey together.</p><p style='font-size: 0.95rem; margin-top: 10px; color: #666;'><br><br><br>Son of <b>Lee Peng Hung & Yii Ling Hung</b><br><b style='display: block; color: #888; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 2px; margin: 5px 0 15px 0;'>Kelvin</b>Daughter of <b>[Bride's Father] & [Bride's Mother]</b><br><b style='display: block; color: #888; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 2px; margin-top: 5px;'>Hesther</b></p>",
+            inviteBody: "<p>We are getting married.</p><p>Please join us as we start our new journey together.</p><p style='font-size: 0.95rem; margin-top: 10px; color: #666;'><br><br><br>Son of <b>Lee Peng Hung & Yii Ling Hung</b><br><b style='display: block; color: #888; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 2px; margin: 5px 0 15px 0;'>Kelvin</b>Daughter of <b>Gu Hae Yong & Cui Fen Zuo</b><br><b style='display: block; color: #888; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 2px; margin-top: 5px;'>Hesther</b></p>",
             dateTitle: "THE WEDDING DAY", dateDisplay: "July 4th, 2026", timeDisplay: "Saturday 17:00 PM",
             days: "Days", hours: "Hrs", mins: "Mins", secs: "Secs", hotelName: "BMK Convention", address: "133 Seomun-ro, Jung-gu, Daejeon",
             rsvpTitle: "CONTACT", groomRole: "GROOM", groomName: "Kelvin", groomPhone: "010-8386-1680", groomBank: "IBK bank 010-8386-1680",
@@ -290,7 +230,7 @@
         },
         cn: {
             heroNames: "李汉勇<br>& 具贤淑", inviteTitle: "诚挚邀请",
-            inviteBody: "<p>两姓联姻，一堂缔约。</p><p>诚挚邀请您见证我们的幸福时刻。</p><p style='font-size: 0.95rem; margin-top: 10px; color: #666;'><br><br><br><b>李炳雄 · 余玲凤</b> 之长男 <b>汉勇</b> <br><b>[女方父亲] · [女方母亲]</b> 之长女 <b>贤淑</b></p>",
+            inviteBody: "<p>两姓联姻，一堂缔约。</p><p>诚挚邀请您见证我们的幸福时刻。</p><p style='font-size: 0.95rem; margin-top: 10px; color: #666;'><br><br><br><b>李炳雄 · 余玲凤</b> 之长男 <b>汉勇</b> <br><b>具海龙 · 崔粉祚</b> 之长女 <b>贤淑</b></p>",
             dateTitle: "婚礼吉日", dateDisplay: "2026年 7月 4日", timeDisplay: "星期六 下午 5:00",
             days: "天", hours: "时", mins: "分", secs: "秒", hotelName: "BMK 婚宴中心", address: "大田广域市 中区 西门路 133",
             rsvpTitle: "联系我们", groomRole: "新郎", groomName: "李汉勇", groomPhone: "010-8386-1680", groomBank: "企业银行 010-8386-1680",
@@ -307,35 +247,23 @@
             bankLabel: "계좌번호", copyMsg: "복사되었습니다"
         }
     };
-    
+
     let currentLang = 'en';
 
-    // --- 2. LOGIC ---
-
-    // Toggle Music
     function toggleMusic() {
         const audio = document.getElementById('bgMusic');
         const svgIcon = document.getElementById('musicSvg');
-        
         const playPath = "M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z";
         const mutedPath = "M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z";
-    
-        if (audio.paused) { 
-            audio.play(); 
-            svgIcon.innerHTML = `<path d="${playPath}"/>`;
-        } else { 
-            audio.pause(); 
-            svgIcon.innerHTML = `<path d="${mutedPath}"/>`;
-        }
+        if (audio.paused) { audio.play(); svgIcon.innerHTML = `<path d="${playPath}"/>`; }
+        else { audio.pause(); svgIcon.innerHTML = `<path d="${mutedPath}"/>`; }
     }
 
-    // Language Swapping
     function setLanguage(lang) {
         currentLang = lang;
         const t = translations[lang];
         document.body.className = 'lang-' + lang;
         document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.innerText.toLowerCase().includes(lang === 'cn' ? 'chinese' : lang === 'ko' ? 'korean' : 'english')));
-        
         document.getElementById('txt-hero-names').innerHTML = t.heroNames;
         document.getElementById('txt-invite-title').innerText = t.inviteTitle;
         document.getElementById('txt-invite-body').innerHTML = t.inviteBody;
@@ -348,16 +276,17 @@
         document.getElementById('txt-groom-role').innerText = t.groomRole;
         document.getElementById('txt-groom-name').innerText = t.groomName;
         document.getElementById('txt-groom-phone').innerText = t.groomPhone;
+        document.getElementById('txt-groom-phone').href = "tel:" + t.groomPhone.replace(/-/g, "");
         document.getElementById('txt-groom-bank').innerText = t.groomBank;
         document.getElementById('txt-bride-role').innerText = t.brideRole;
         document.getElementById('txt-bride-name').innerText = t.brideName;
         document.getElementById('txt-bride-phone').innerText = t.bridePhone;
+        document.getElementById('txt-bride-phone').href = "tel:" + t.bridePhone.replace(/-/g, "");
         document.getElementById('txt-bride-bank').innerText = t.brideBank;
         document.getElementById('txt-bank-label-1').innerText = t.bankLabel;
         document.getElementById('txt-bank-label-2').innerText = t.bankLabel;
     }
 
-    // Hero Slideshow Init
     const heroCont = document.getElementById('hero-container');
     heroIDs.forEach((id, index) => {
         const img = document.createElement('img');
@@ -374,26 +303,18 @@
         slides[heroIdx].classList.add('active');
     }, 5000);
 
-    // Random Gallery Logic
     function updateRandomGallery() {
         const galleryCont = document.getElementById('random-gallery');
         galleryCont.style.opacity = '0';
-        
         setTimeout(() => {
             const shuffled = [...galleryIDs].sort(() => 0.5 - Math.random());
             for (let i = 0; i < 4; i++) {
                 document.getElementById(`g-img-${i}`).src = driveBase + shuffled[i] + "&sz=w800";
             }
-            setTimeout(() => {
-                galleryCont.style.opacity = '1';
-            }, 100); 
+            setTimeout(() => { galleryCont.style.opacity = '1'; }, 100); 
         }, 700);
     }
 
-    updateRandomGallery();
-    setInterval(updateRandomGallery, 5000);
-
-    // Countdown
     const weddingDate = new Date("2026-07-04T17:00:00").getTime();
     setInterval(() => {
         const now = new Date().getTime();
@@ -411,7 +332,6 @@
         `;
     }, 1000);
 
-    // Copy
     function copyText(id) {
         const txt = document.getElementById(id).innerText;
         navigator.clipboard.writeText(txt).then(() => {
@@ -422,50 +342,29 @@
         });
     }
 
-    // --- 1. Starlight Generator ---
     function createStars() {
         const container = document.createElement('div');
         container.className = 'starlight-container';
         document.body.appendChild(container);
-    
         for (let i = 0; i < 40; i++) {
             let star = document.createElement('div');
             star.className = 'star';
-            
             let size = Math.random() * 2.5 + 1; 
             star.style.width = size + 'px';
             star.style.height = size + 'px';
             star.style.left = Math.random() * 100 + 'vw';
-            
             star.style.animationDuration = (Math.random() * 10 + 10) + 's'; 
             star.style.animationDelay = Math.random() * 5 + 's';
-            
             container.appendChild(star);
         }
     }
-    
-    // --- 2. Scroll Transition Observer ---
-    function initScrollAnimations() {
-        const sections = document.querySelectorAll('.section');
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                // Fixed: Lowered the threshold so tall sections trigger easily
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-                }
-            });
-        }, {
-            threshold: 0.15
-        });
-    
-        sections.forEach(sec => observer.observe(sec));
-    }
-    
+
     window.addEventListener('load', () => {
         setLanguage('en');
         createStars();
-        initScrollAnimations();
+        updateRandomGallery();
+        setInterval(updateRandomGallery, 5000);
+        new daum.roughmap.Lander({"timestamp":"1764037005479","key":"crv6tdzjsz3","mapWidth":"640","mapHeight":"360"}).render();
     });
 </script>
 
