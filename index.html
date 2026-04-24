@@ -98,7 +98,14 @@
         .section-title { font-size: 1.0rem; color: var(--main-gold); text-transform: uppercase; letter-spacing: 4px; font-weight: 600; margin-bottom: 0; }
         .divider-line { width: 1px; height: 40px; background-color: var(--main-gold); margin: 30px auto; opacity: 0.6; }
         
-        .gallery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 0 10px; transition: opacity 0.7s ease-in-out; }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            padding: 0 10px;
+            /* Changed from 0.7s to 2s to match the cover */
+            transition: opacity 2s ease-in-out; 
+        }
         /* --- Gallery Grid Fix (No Cropping & Invisible Background) --- */
         .gallery-grid img { 
             width: 100%; 
@@ -132,18 +139,28 @@
 
         #toast { visibility: hidden; min-width: 200px; background-color: rgba(0,0,0,0.8); color: #fff; text-align: center; border-radius: 50px; padding: 10px; position: fixed; z-index: 2000; left: 50%; bottom: 30px; transform: translateX(-50%); opacity: 0; transition: 0.3s; }
         #toast.show { visibility: visible; opacity: 1; bottom: 50px; }
+        #sec-date {
+            min-height: auto !important; 
+            height: auto !important; 
+            /* Adjust padding to provide just enough breathing room */
+            padding: 60px 30px 60px !important; 
+            /* Keep the snap point at the top of the section */
+            scroll-snap-align: start; 
+        }
+        
+        /* 2. Tighten the map container */
         .root_daum_roughmap { 
             margin-top: 20px !important; 
             width: 100% !important; 
-            height: 240px !important; /* The "classic" compact size */
+            height: 250px !important; /* This is the standard compact height */
             border-radius: 8px; 
             overflow: hidden; 
         }
         
-        /* 3. Ensure the map internal parts don't grow */
+        /* 3. Ensure the internal Kakao Map doesn't try to expand */
         .root_daum_roughmap .wrap_map, 
         .root_daum_roughmap .map {
-            height: 240px !important;
+            height: 250px !important;
         }
     </style>
 </head>
