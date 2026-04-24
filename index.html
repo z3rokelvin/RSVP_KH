@@ -169,6 +169,32 @@
         .root_daum_roughmap .map {
             height: 250px !important;
         }
+
+        /* --- Side Navigator Styles --- */
+        .side-nav {
+            position: fixed;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 1100;
+        }
+        
+        .nav-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: rgba(180, 151, 90, 0.3); /* Muted gold */
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .nav-dot.active {
+            background-color: var(--main-gold); /* Solid gold */
+            transform: scale(1.5);
+        }
     </style>
 </head>
 <body class="lang-en">
@@ -260,6 +286,14 @@
     </div>
 
     <div class="footer">Thank you for coming</div>
+    <div class="side-nav">
+        <a href="#sec-hero" class="nav-dot active"></a>
+        <a href="#sec-invite" class="nav-dot"></a>
+        <a href="#sec-date" class="nav-dot"></a>
+        <a href="#sec-gallery" class="nav-dot"></a>
+        <a href="#sec-contact" class="nav-dot"></a>
+    </div>
+    
 </div>
 
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -432,6 +466,32 @@
         createStars();
         new daum.roughmap.Lander({"timestamp":"1764037005479","key":"crv6tdzjsz3","mapWidth":"640","mapHeight":"360"}).render();
     });
+
+    // --- Side Navigator Logic ---
+    const sections = document.querySelectorAll('.hero, .section');
+    const navDots = document.querySelectorAll('.nav-dot');
+
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.5 // Triggers when half the section is visible
+    };
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Remove active class from all
+                navDots.forEach(dot => dot.classList.remove('active'));
+                
+                // Add active class to the correct dot
+                const id = entry.target.getAttribute('id');
+                const activeDot = document.querySelector(`.nav-dot[href="#${id}"]`);
+                if (activeDot) activeDot.classList.add('active');
+            }
+        });
+    }, observerOptions);
+
+    sections.forEach(sec => sectionObserver.observe(sec));
 </script>
 
 </body>
