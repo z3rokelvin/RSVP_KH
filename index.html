@@ -98,24 +98,32 @@
         .section-title { font-size: 1.0rem; color: var(--main-gold); text-transform: uppercase; letter-spacing: 4px; font-weight: 600; margin-bottom: 0; }
         .divider-line { width: 1px; height: 40px; background-color: var(--main-gold); margin: 30px auto; opacity: 0.6; }
         
-        .gallery-grid {
-            display: block; 
-            padding: 0 10px;
-            /* This makes the fade last 2 seconds, matching your cover */
-            transition: opacity 2s ease-in-out; 
-            opacity: 1; /* Ensure it starts visible */
+        .gallery-slideshow {
+            position: relative;
+            width: 100%;
+            height: 450px; /* Adjust height as needed */
+            overflow: hidden;
+            background-color: transparent;
         }
         
-        .gallery-grid img { 
-            width: 100%; 
-            height: 450px; 
-            object-fit: contain; 
-            background-color: transparent; 
+        .gallery-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* No cropping */
+            opacity: 0;
+            transition: opacity 2s ease-in-out; /* Match cover transition */
+        }
+        
+        .gallery-slide.active {
+            opacity: 1;
         }
         
         @media (max-width: 480px) {
-            .gallery-grid img {
-                height: 350px; /* Adjusted for mobile screens */
+            .gallery-slideshow {
+                height: 350px;
             }
         }
         
@@ -217,9 +225,7 @@
     <div id="sec-gallery" class="section">
         <div data-aos="fade-up" data-aos-duration="1000">
             <h2 class="section-title" style="margin-bottom: 30px;">GALLERY</h2>
-            <div class="gallery-grid" id="random-gallery">
-                <img id="g-img-0" style="width: 100%;">
-            </div>
+            <div id="gallery-container" class="gallery-slideshow"></div>
         </div>
     </div>
 
@@ -349,26 +355,33 @@
         slides[heroIdx].classList.add('active');
     }, 5000);
 
-    function updateRandomGallery() {
-        const galleryCont = document.getElementById('random-gallery');
-        const imgElement = document.getElementById('g-img-0');
+    // 1. Initialize Gallery Slides (Add this in your window.load listener)
+    const galleryCont = document.getElementById('gallery-container');
+    galleryIDs.forEach((id, index) => {
+        const img = document.createElement('img');
+        img.src = driveBase + id + "&sz=w1200"; 
+        img.className = 'gallery-slide' + (index === 0 ? ' active' : '');
+        galleryCont.appendChild(img);
+    });
+    
+    // 2. Sequential Slideshow Logic
+    let galleryIdx = 0;
+    function playGallery() {
+        const slides = document.querySelectorAll('.gallery-slide');
+        if (slides.length === 0) return;
+    
+        // Remove active from current
+        slides[galleryIdx].classList.remove('active');
         
-        // 1. Start the 2-second fade out
-        galleryCont.style.opacity = '0';
+        // Move to next in order
+        galleryIdx = (galleryIdx + 1) % slides.length;
         
-        setTimeout(() => {
-            // 2. Pick exactly ONE random image ID from your list
-            const randomID = galleryIDs[Math.floor(Math.random() * galleryIDs.length)];
-            
-            // 3. Update the source (using w1200 for better quality on a single large image)
-            imgElement.src = driveBase + randomID + "&sz=w1200";
-            
-            // 4. Trigger the 2-second fade in after the source is swapped
-            setTimeout(() => { 
-                galleryCont.style.opacity = '1'; 
-            }, 100); 
-        }, 2000); // This 2000ms (2s) matches your CSS transition perfectly
+        // Add active to next
+        slides[galleryIdx].classList.add('active');
     }
+    
+    // 3. Start the interval (Match the 5s timing of your cover)
+    setInterval(playGallery, 5000);
 
     const weddingDate = new Date("2026-07-04T17:00:00").getTime();
     setInterval(() => {
