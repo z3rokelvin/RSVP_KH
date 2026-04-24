@@ -130,11 +130,12 @@
         /* --- Sections (Snaps & Fades) --- */
         .section { 
             min-height: 100vh;
-            padding: 100px 30px 40px; 
+            padding: 100px 30px 60px; 
             box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-            justify-content: center; 
+            
+            /* FIXED: display block prevents the map from squishing to 0 height */
+            display: block; 
+            
             scroll-snap-align: start; 
             opacity: 0; 
             transition: opacity 1.5s ease-out; 
@@ -172,7 +173,9 @@
 
         #toast { visibility: hidden; min-width: 200px; background-color: rgba(0,0,0,0.8); color: #fff; text-align: center; border-radius: 50px; padding: 10px; position: fixed; z-index: 2000; left: 50%; bottom: 30px; transform: translateX(-50%); opacity: 0; transition: 0.3s; }
         #toast.show { visibility: visible; opacity: 1; bottom: 50px; }
-        .root_daum_roughmap { margin-top: 30px !important; width: 100% !important; border-radius: 8px; overflow: hidden; }
+        
+        /* Ensures the map always has enough height */
+        .root_daum_roughmap { margin-top: 30px !important; width: 100% !important; min-height: 250px; border-radius: 8px; overflow: hidden; }
     </style>
 </head>
 <body class="lang-en">
@@ -278,7 +281,7 @@
     const translations = {
         en: {
             heroNames: "Kelvin<br>& Hesther", inviteTitle: "INVITATION",
-            inviteBody: "<p>We are getting married.</p><p>Please join us as we start our new journey together.</p><p style='font-size: 0.95rem; margin-top: 10px; color: #666;'><br><br><br>Son of <b>Lee Peng Hung & Yii Ling Hung</b><br>Daughter of <b>[Bride's Father] & [Bride's Mother]</b></p>",
+            inviteBody: "<p>We are getting married.</p><p>Please join us as we start our new journey together.</p><p style='font-size: 0.95rem; margin-top: 10px; color: #666;'><br><br><br>Son of <b>Lee Peng Hung & Yii Ling Hung</b><br><b style='display: block; color: #888; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 2px; margin: 5px 0 15px 0;'>Kelvin</b>Daughter of <b>[Bride's Father] & [Bride's Mother]</b><br><b style='display: block; color: #888; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 2px; margin-top: 5px;'>Hesther</b></p>",
             dateTitle: "THE WEDDING DAY", dateDisplay: "July 4th, 2026", timeDisplay: "Saturday 17:00 PM",
             days: "Days", hours: "Hrs", mins: "Mins", secs: "Secs", hotelName: "BMK Convention", address: "133 Seomun-ro, Jung-gu, Daejeon",
             rsvpTitle: "CONTACT", groomRole: "GROOM", groomName: "Kelvin", groomPhone: "010-8386-1680", groomBank: "IBK bank 010-8386-1680",
@@ -287,7 +290,7 @@
         },
         cn: {
             heroNames: "李汉勇<br>& 具贤淑", inviteTitle: "诚挚邀请",
-            inviteBody: "<p>两姓联姻，一堂缔约。</p><p>诚挚邀请您见证我们的幸福时刻。</p><p style='font-size: 0.95rem; margin-top: 10px; color: #666;'><br><br><br><b>李炳雄 & 余玲凤</b> 之长男 <b>汉勇</b> <br><b>[女方父亲] & [女方母亲]</b> 之长女 <b>贤淑</b></p>",
+            inviteBody: "<p>两姓联姻，一堂缔约。</p><p>诚挚邀请您见证我们的幸福时刻。</p><p style='font-size: 0.95rem; margin-top: 10px; color: #666;'><br><br><br><b>李炳雄 · 余玲凤</b> 之长男 <b>汉勇</b> <br><b>[女方父亲] · [女方母亲]</b> 之长女 <b>贤淑</b></p>",
             dateTitle: "婚礼吉日", dateDisplay: "2026年 7月 4日", timeDisplay: "星期六 下午 5:00",
             days: "天", hours: "时", mins: "分", secs: "秒", hotelName: "BMK 婚宴中心", address: "大田广域市 中区 西门路 133",
             rsvpTitle: "联系我们", groomRole: "新郎", groomName: "李汉勇", groomPhone: "010-8386-1680", groomBank: "企业银行 010-8386-1680",
@@ -304,7 +307,7 @@
             bankLabel: "계좌번호", copyMsg: "복사되었습니다"
         }
     };
-
+    
     let currentLang = 'en';
 
     // --- 2. LOGIC ---
@@ -319,11 +322,9 @@
     
         if (audio.paused) { 
             audio.play(); 
-            // Just swap to play icon, the container keeps spinning
             svgIcon.innerHTML = `<path d="${playPath}"/>`;
         } else { 
             audio.pause(); 
-            // Just swap to muted icon, the container keeps spinning
             svgIcon.innerHTML = `<path d="${mutedPath}"/>`;
         }
     }
@@ -449,12 +450,13 @@
         
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
+                // Fixed: Lowered the threshold so tall sections trigger easily
                 if (entry.isIntersecting) {
                     entry.target.classList.add('is-visible');
                 }
             });
         }, {
-            threshold: 0.5
+            threshold: 0.15
         });
     
         sections.forEach(sec => observer.observe(sec));
