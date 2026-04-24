@@ -25,6 +25,44 @@
         body.lang-cn { font-family: 'Noto Serif SC', serif; letter-spacing: 1px; }
         body.lang-ko { font-family: 'Noto Serif KR', serif; letter-spacing: 0.5px; }
 
+        /* --- 1. Falling Starlight Effect --- */
+        .starlight-container {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; /* Allows users to click through the stars */
+            z-index: 999; /* Keeps stars above the background but below the music button */
+            overflow: hidden;
+        }
+        
+        .star {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+            /* Gives the stars a soft, warm glowing halo */
+            box-shadow: 0 0 8px 2px rgba(255, 235, 180, 0.6); 
+            animation: fall linear infinite;
+        }
+        
+        @keyframes fall {
+            0% { transform: translateY(-20px) scale(0.5); opacity: 0; }
+            10% { opacity: 0.8; }
+            80% { opacity: 0.8; }
+            100% { transform: translateY(100vh) scale(1.2); opacity: 0; }
+        }
+        
+        /* --- 2. Scroll Transition Effect (Fade In Up) --- */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(40px); /* Starts slightly lower */
+            transition: opacity 1s ease-out, transform 1s ease-out;
+            will-change: opacity, transform;
+        }
+        
+        .reveal-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0); /* Moves to original position */
+        }
+        
         /* --- Audio Button --- */
         .music-control {
             position: fixed; top: 85px; right: 20px; z-index: 1100;
@@ -239,19 +277,26 @@
         const btn = document.getElementById('musicBtn');
         const svgIcon = document.getElementById('musicSvg');
         
-        // Icon when playing
+        // Icon when playing (Musical Note)
         const playPath = "M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z";
-        // Icon when muted/paused
+        // Icon when muted/paused (Speaker with a slash)
         const mutedPath = "M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z";
     
         if (audio.paused) { 
-            // User clicks it, and it acts as the play button
             audio.play(); 
+            
+            // 1. Start turning
             btn.classList.add('rotating'); 
+            
+            // 2. Change to musical note
             svgIcon.innerHTML = `<path d="${playPath}"/>`;
         } else { 
             audio.pause(); 
+            
+            // 1. Stop turning
             btn.classList.remove('rotating');
+            
+            // 2. Change back to muted icon
             svgIcon.innerHTML = `<path d="${mutedPath}"/>`;
         }
     }
@@ -366,6 +411,67 @@
         setLanguage('en');
         updateRandomGallery();
     };
+
+    // --- 1. Starlight Generator ---
+    function createStars() {
+        const container = document.createElement('div');
+        container.className = 'starlight-container';
+        document.body.appendChild(container);
+    
+        // Create 40 stars
+        for (let i = 0; i < 40; i++) {
+            let star = document.createElement('div');
+            star.className = 'star';
+            
+            // Randomize size between 1px and 3.5px
+            let size = Math.random() * 2.5 + 1; 
+            star.style.width = size + 'px';
+            star.style.height = size + 'px';
+            
+            // Randomize horizontal starting position
+            star.style.left = Math.random() * 100 + 'vw';
+            
+            // Randomize falling speed (between 4s and 9s)
+            star.style.animationDuration = (Math.random() * 5 + 4) + 's'; 
+            
+            // Randomize delay so they don't all fall at once
+            star.style.animationDelay = Math.random() * 5 + 's';
+            
+            container.appendChild(star);
+        }
+    }
+    
+    // --- 2. Scroll Transition Observer ---
+    function initScrollAnimations() {
+        // Select all your main sections
+        const sections = document.querySelectorAll('.section');
+        
+        // Add the starting CSS class to each section
+        sections.forEach(sec => sec.classList.add('reveal-on-scroll'));
+    
+        // Set up the Intersection Observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                // When the section comes into the viewport (15% visible)
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    // Optional: stop observing once it has faded in
+                    observer.unobserve(entry.target); 
+                }
+            });
+        }, {
+            threshold: 0.15 // Triggers when 15% of the section is visible
+        });
+    
+        // Start observing each section
+        sections.forEach(sec => observer.observe(sec));
+    }
+    
+    // Initialize both effects when the window loads
+    window.addEventListener('load', () => {
+        createStars();
+        initScrollAnimations();
+    });
 </script>
 
 </body>
