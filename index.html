@@ -191,12 +191,12 @@
     const driveBase = "https://drive.google.com/thumbnail?id=";
     
     // 5 Photos for the top slideshow
-    const heroIDs = ["1GXaSEL2Z5kswvG_FlgjW8EA1V0DM1RVo", "13IeGNdNIQGqnofcKEFhRQL17TTc4jzqX", "1GaQ3bhjRzF2ey_sbbetmuLutePJyMYHV", "1b568hISmjQSsEpXXKLWkxJBBOv6iFKDu", "1D7Bu6SCpm5f39znbLRHGJnukOUrdwWK2"];
+    const heroIDs = ["1GXaSEL2Z5kswvG_FlgjW8EA1V0DM1RVo", "1eWlhaHNJrlJGh8xI8kZ6HuEMF1S9Q8CI", "1GaQ3bhjRzF2ey_sbbetmuLutePJyMYHV", "1b568hISmjQSsEpXXKLWkxJBBOv6iFKDu", "1D7Bu6SCpm5f39znbLRHGJnukOUrdwWK2"];
     
     // 8 Photos for the gallery
     const galleryIDs = [
         "1hPycAGXRUZZyX6A5jXiRB1o8sErs70xL", "16_yfv3b63vRtaAIgYuiIC9aT1puDiV_F", "1WWPAEiwmwveFncsN_RudMWCMFxHPB_2y", "1HwiNS_ZMCr3QGosK6hSfdlzUPzqNc84U", 
-        "1z4N4peyLPeZW4b2h7SCRKSOFKZwPrt_X", "1molwjz6XvtFdUW-4aQzDe-MrzePwgA9_", "1rq5TETIVfMhEHNqn3R7sjWTK4mfrs6n0", "1qOrTP4T2bN2tZoQuzWQoOwJxc9qW7Nie"
+        "1z4N4peyLPeZW4b2h7SCRKSOFKZwPrt_X", "1molwjz6XvtFdUW-4aQzDe-MrzePwgA9_", "1rq5TETIVfMhEHNqn3R7sjWTK4mfrs6n0", "13IeGNdNIQGqnofcKEFhRQL17TTc4jzqX"
     ];
 
     const translations = {
@@ -305,16 +305,33 @@
     // Random Gallery Logic
     function updateRandomGallery() {
         const galleryCont = document.getElementById('random-gallery');
+        
+        // 1. Fade the container out
         galleryCont.style.opacity = '0';
+        
+        // 2. Wait for the fade out to finish (matches the 0.7s CSS transition)
         setTimeout(() => {
+            // Shuffle the array of IDs
             const shuffled = [...galleryIDs].sort(() => 0.5 - Math.random());
+            
+            // Assign new images
             for (let i = 0; i < 4; i++) {
-                // Add "&sz=w800" because gallery images can be slightly smaller to load faster
                 document.getElementById(`g-img-${i}`).src = driveBase + shuffled[i] + "&sz=w800";
             }
-            galleryCont.style.opacity = '1';
-        }, 700);
+            
+            // Wait a tiny bit for images to load, then fade back in
+            setTimeout(() => {
+                galleryCont.style.opacity = '1';
+            }, 100); 
+            
+        }, 700); // 700ms matches the CSS transition time
     }
+
+    // Call it immediately on load
+    updateRandomGallery();
+
+    // Then run it every 5 seconds (5000ms)
+    setInterval(updateRandomGallery, 5000);
 
     // Countdown
     const weddingDate = new Date("2026-07-04T17:00:00").getTime();
