@@ -99,17 +99,18 @@
         .divider-line { width: 1px; height: 40px; background-color: var(--main-gold); margin: 30px auto; opacity: 0.6; }
         
         .gallery-grid {
-            display: block; /* Removed grid columns */
+            display: block; 
             padding: 0 10px;
+            /* This makes the fade last 2 seconds, matching your cover */
             transition: opacity 2s ease-in-out; 
+            opacity: 1; /* Ensure it starts visible */
         }
         
         .gallery-grid img { 
             width: 100%; 
-            height: 450px; /* Taller height since it is only one photo */
-            object-fit: contain; /* Ensures no cropping */
+            height: 450px; 
+            object-fit: contain; 
             background-color: transparent; 
-            border: none;
         }
         
         @media (max-width: 480px) {
@@ -350,14 +351,23 @@
 
     function updateRandomGallery() {
         const galleryCont = document.getElementById('random-gallery');
+        const imgElement = document.getElementById('g-img-0');
+        
+        // 1. Start the 2-second fade out
         galleryCont.style.opacity = '0';
+        
         setTimeout(() => {
-            const shuffled = [...galleryIDs].sort(() => 0.5 - Math.random());
-            for (let i = 0; i < 4; i++) {
-                document.getElementById(`g-img-${i}`).src = driveBase + shuffled[i] + "&sz=w800";
-            }
-            setTimeout(() => { galleryCont.style.opacity = '1'; }, 100); 
-        }, 700);
+            // 2. Pick exactly ONE random image ID from your list
+            const randomID = galleryIDs[Math.floor(Math.random() * galleryIDs.length)];
+            
+            // 3. Update the source (using w1200 for better quality on a single large image)
+            imgElement.src = driveBase + randomID + "&sz=w1200";
+            
+            // 4. Trigger the 2-second fade in after the source is swapped
+            setTimeout(() => { 
+                galleryCont.style.opacity = '1'; 
+            }, 100); 
+        }, 2000); // This 2000ms (2s) matches your CSS transition perfectly
     }
 
     const weddingDate = new Date("2026-07-04T17:00:00").getTime();
