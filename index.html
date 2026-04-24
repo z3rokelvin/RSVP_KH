@@ -189,11 +189,39 @@
             background-color: rgba(180, 151, 90, 0.3); /* Muted gold */
             transition: all 0.3s ease;
             cursor: pointer;
+            position: relative; /* Crucial for positioning the text */
         }
         
+        /* --- The Tooltip Text Setup --- */
+        .nav-dot::after {
+            content: attr(data-label); /* Pulls the text from the HTML */
+            position: absolute;
+            right: 20px; /* Positions it to the left of the dot */
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: var(--main-gold);
+            color: #fff;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-family: 'Noto Serif KR', serif; /* Keeps font consistent */
+            white-space: nowrap;
+            opacity: 0; /* Hidden by default */
+            pointer-events: none; /* Stops it from blocking clicks */
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        
+        /* --- When Active --- */
         .nav-dot.active {
-            background-color: var(--main-gold); /* Solid gold */
-            transform: scale(1.5);
+            background-color: var(--main-gold); /* Solid gold dot */
+            transform: scale(1.5); /* Makes the dot bigger */
+        }
+        
+        /* Show the text ONLY when active */
+        .nav-dot.active::after {
+            opacity: 1; /* Make visible */
+            /* Adjusts for the dot scaling so it doesn't overlap */
+            transform: translateY(-50%) scale(0.66); 
         }
     </style>
 </head>
@@ -287,11 +315,11 @@
 
     <div class="footer">Thank you for coming</div>
     <div class="side-nav">
-        <a href="#sec-hero" class="nav-dot active"></a>
-        <a href="#sec-invite" class="nav-dot"></a>
-        <a href="#sec-date" class="nav-dot"></a>
-        <a href="#sec-gallery" class="nav-dot"></a>
-        <a href="#sec-contact" class="nav-dot"></a>
+        <a href="#sec-hero" class="nav-dot active" data-label="Cover"></a>
+        <a href="#sec-invite" class="nav-dot" data-label="Invitation"></a>
+        <a href="#sec-date" class="nav-dot" data-label="Date"></a>
+        <a href="#sec-gallery" class="nav-dot" data-label="Gallery"></a>
+        <a href="#sec-contact" class="nav-dot" data-label="Contact"></a>
     </div>
     
 </div>
