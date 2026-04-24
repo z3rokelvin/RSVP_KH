@@ -99,31 +99,25 @@
         .divider-line { width: 1px; height: 40px; background-color: var(--main-gold); margin: 30px auto; opacity: 0.6; }
         
         .gallery-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
+            display: block; /* Removed grid columns */
             padding: 0 10px;
-            /* Changed from 0.7s to 2s to match the cover */
             transition: opacity 2s ease-in-out; 
         }
-        /* --- Gallery Grid Fix (No Cropping & Invisible Background) --- */
+        
         .gallery-grid img { 
             width: 100%; 
-            height: 250px; 
-            object-fit: contain; 
-            /* This makes the background blend in perfectly with the card */
+            height: 450px; /* Taller height since it is only one photo */
+            object-fit: contain; /* Ensures no cropping */
             background-color: transparent; 
-            border-radius: 4px;
-            /* Removed the border so it looks cleaner without a frame */
-            border: none; 
+            border: none;
         }
-
-        /* Mobile Adjustment */
+        
         @media (max-width: 480px) {
             .gallery-grid img {
-                height: 200px;
+                height: 350px; /* Adjusted for mobile screens */
             }
         }
+        
         .countdown { display: flex; justify-content: center; gap: 20px; margin: 40px 0; }
         .number { font-size: 1.8rem; font-weight: 300; color: var(--main-gold); }
         .label { font-size: 0.6rem; text-transform: uppercase; color: #999; }
@@ -222,7 +216,7 @@
         <div data-aos="fade-up" data-aos-duration="1000">
             <h2 class="section-title" style="margin-bottom: 30px;">GALLERY</h2>
             <div class="gallery-grid" id="random-gallery">
-                <img id="g-img-0"><img id="g-img-1"><img id="g-img-2"><img id="g-img-3">
+                <img id="g-img-0" style="width: 100%;">
             </div>
         </div>
     </div>
