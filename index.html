@@ -285,12 +285,12 @@
             heroNames: "李汉勇<br>& 具贤淑", inviteTitle: "诚挚邀请",
             inviteBody: "<p>两姓联姻，一堂缔约。</p><p>诚挚邀请您见证我们的幸福时刻。</p><p style='font-size: 0.95rem; margin-top: 10px; color: #666;'><br><br><br><b>李炳雄 · 余玲凤</b> 之长男 <b>汉勇</b> <br><b>具海龙 · 崔粉祚</b> 之唯嫒 <b>贤淑</b></p>",
             dateTitle: "婚礼吉日", dateDisplay: "2026年 7月 4日", timeDisplay: "星期六 下午 5:00",
-            days: "天", hours: "时", mins: "分", secs: "秒", hotelName: "BMK 婚宴中心", hotelPhone: "042-334-1000", address: "大田广域市 中区 西门路 133",
+            days: "天", hours: "时", mins: "分", secs: "秒", hotelName: "BMK 婚宴中心", hotelPhone: "042-334-1000", address: "大田广域市 中区 西门로 133",
             rsvpTitle: "联系我们", groomRole: "新郎", groomName: "李汉勇", groomPhone: "010-8386-1680", groomBank: "企业银行 010-8386-1680",
             brideRole: "新娘", brideName: "具贤淑", bridePhone: "010-9506-3160", brideBank: "韩亚银行 627-910204-57907",
             bankLabel: "礼金账户", copyMsg: "已复制"
         },
-        ko: {l
+        ko: {
             heroNames: "이캘빈한용<br>& 구현숙", inviteTitle: "소중한 초대",
             inviteBody: "<p>서로가 서로에게 가장 빛나는 사람이 되겠습니다.</p><p>귀한 걸음 하시어 축복해 주시면 감사하겠습니다.</p><p style='font-size: 1rem; margin-top: 10px; color: #666;'><br><br><br><b>이벼웅 · 여영봉</b> 의 장남 <b>캘빈한용</b><br><b>구해용 · 최분조</b> 의 장녀 <b>현숙‎‎‎‎ㅤㅤ</b></p>",
             dateTitle: "예식 일시", dateDisplay: "2026년 7월 4일", timeDisplay: "토요일 오후 5시",
@@ -302,7 +302,7 @@
     };
 
     let currentLang = 'en';
-: uppercase; letter-spacing: 2px; margin: 5px 0 15px 0;'>Kelvin</b>Daughter of <b>Gu Hae Yong & Cui Fen Zuo</b><br><b style='display: block; color: 
+
     function toggleMusic() {
         const audio = document.getElementById('bgMusic');
         const svgIcon = document.getElementById('musicSvg');
@@ -341,6 +341,7 @@
         document.getElementById('txt-bank-label-2').innerText = t.bankLabel;
     }
 
+    // Initialize Hero
     const heroCont = document.getElementById('hero-container');
     heroIDs.forEach((id, index) => {
         const img = document.createElement('img');
@@ -352,12 +353,14 @@
     let heroIdx = 0;
     setInterval(() => {
         const slides = document.querySelectorAll('.hero-slide');
-        slides[heroIdx].classList.remove('active');
-        heroIdx = (heroIdx + 1) % slides.length;
-        slides[heroIdx].classList.add('active');
+        if(slides.length > 0) {
+            slides[heroIdx].classList.remove('active');
+            heroIdx = (heroIdx + 1) % slides.length;
+            slides[heroIdx].classList.add('active');
+        }
     }, 5000);
 
-    // 1. Initialize Gallery Slides (Add this in your window.load listener)
+    // Initialize Gallery
     const galleryCont = document.getElementById('gallery-container');
     galleryIDs.forEach((id, index) => {
         const img = document.createElement('img');
@@ -366,25 +369,17 @@
         galleryCont.appendChild(img);
     });
     
-    // 2. Sequential Slideshow Logic
     let galleryIdx = 0;
     function playGallery() {
         const slides = document.querySelectorAll('.gallery-slide');
         if (slides.length === 0) return;
-    
-        // Remove active from current
         slides[galleryIdx].classList.remove('active');
-        
-        // Move to next in order
         galleryIdx = (galleryIdx + 1) % slides.length;
-        
-        // Add active to next
         slides[galleryIdx].classList.add('active');
     }
-    
-    // 3. Start the interval (Match the 5s timing of your cover)
     setInterval(playGallery, 5000);
 
+    // Countdown Logic
     const weddingDate = new Date("2026-07-04T17:00:00").getTime();
     setInterval(() => {
         const now = new Date().getTime();
@@ -432,8 +427,6 @@
     window.addEventListener('load', () => {
         setLanguage('en');
         createStars();
-        updateRandomGallery();
-        setInterval(updateRandomGallery, 5000);
         new daum.roughmap.Lander({"timestamp":"1764037005479","key":"crv6tdzjsz3","mapWidth":"640","mapHeight":"360"}).render();
     });
 </script>
