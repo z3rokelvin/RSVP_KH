@@ -99,8 +99,24 @@
         .divider-line { width: 1px; height: 40px; background-color: var(--main-gold); margin: 30px auto; opacity: 0.6; }
         
         .gallery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 0 10px; transition: opacity 0.7s ease-in-out; }
-        .gallery-grid img { width: 100%; height: 250px; object-fit: cover; border-radius: 2px; }
+        /* --- Gallery Grid Fix (No Cropping & Invisible Background) --- */
+        .gallery-grid img { 
+            width: 100%; 
+            height: 250px; 
+            object-fit: contain; 
+            /* This makes the background blend in perfectly with the card */
+            background-color: transparent; 
+            border-radius: 4px;
+            /* Removed the border so it looks cleaner without a frame */
+            border: none; 
+        }
 
+        /* Mobile Adjustment */
+        @media (max-width: 480px) {
+            .gallery-grid img {
+                height: 200px;
+            }
+        }
         .countdown { display: flex; justify-content: center; gap: 20px; margin: 40px 0; }
         .number { font-size: 1.8rem; font-weight: 300; color: var(--main-gold); }
         .label { font-size: 0.6rem; text-transform: uppercase; color: #999; }
@@ -215,8 +231,8 @@
 
     // --- Configuration ---
     const driveBase = "https://drive.google.com/thumbnail?id=";
-    const heroIDs = ["1GXaSEL2Z5kswvG_FlgjW8EA1V0DM1RVo", "1eWlhaHNJrlJGh8xI8kZ6HuEMF1S9Q8CI", "1GaQ3bhjRzF2ey_sbbetmuLutePJyMYHV", "1b568hISmjQSsEpXXKLWkxJBBOv6iFKDu", "1D7Bu6SCpm5f39znbLRHGJnukOUrdwWK2"];
-    const galleryIDs = ["1hPycAGXRUZZyX6A5jXiRB1o8sErs70xL", "16_yfv3b63vRtaAIgYuiIC9aT1puDiV_F", "1WWPAEiwmwveFncsN_RudMWCMFxHPB_2y", "1HwiNS_ZMCr3QGosK6hSfdlzUPzqNc84U", "1z4N4peyLPeZW4b2h7SCRKSOFKZwPrt_X", "1molwjz6XvtFdUW-4aQzDe-MrzePwgA9_", "1rq5TETIVfMhEHNqn3R7sjWTK4mfrs6n0", "13IeGNdNIQGqnofcKEFhRQL17TTc4jzqX"];
+    const heroIDs = ["1GXaSEL2Z5kswvG_FlgjW8EA1V0DM1RVo", "1hPycAGXRUZZyX6A5jXiRB1o8sErs70xL", "1GaQ3bhjRzF2ey_sbbetmuLutePJyMYHV", "1b568hISmjQSsEpXXKLWkxJBBOv6iFKDu", "1D7Bu6SCpm5f39znbLRHGJnukOUrdwWK2"];
+    const galleryIDs = ["1GXaSEL2Z5kswvG_FlgjW8EA1V0DM1RVo", "1eWlhaHNJrlJGh8xI8kZ6HuEMF1S9Q8CI", "1GaQ3bhjRzF2ey_sbbetmuLutePJyMYHV", "1b568hISmjQSsEpXXKLWkxJBBOv6iFKDu", "1D7Bu6SCpm5f39znbLRHGJnukOUrdwWK2", "1hPycAGXRUZZyX6A5jXiRB1o8sErs70xL", "16_yfv3b63vRtaAIgYuiIC9aT1puDiV_F", "1WWPAEiwmwveFncsN_RudMWCMFxHPB_2y", "1HwiNS_ZMCr3QGosK6hSfdlzUPzqNc84U", "1z4N4peyLPeZW4b2h7SCRKSOFKZwPrt_X", "1molwjz6XvtFdUW-4aQzDe-MrzePwgA9_", "1rq5TETIVfMhEHNqn3R7sjWTK4mfrs6n0", "13IeGNdNIQGqnofcKEFhRQL17TTc4jzqX"];
 
     const translations = {
         en: {
