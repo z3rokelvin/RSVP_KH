@@ -192,29 +192,31 @@
         }
         
         .nav-dot {
-            width: 2px;  /* Made really, really small */
+            width: 2px;  
             height: 2px;
             border-radius: 50%;
-            background-color: transparent; /* Made the button transparent */
-            border: 1px solid rgba(180, 151, 90, 0.6); /* Kept a faint gold ring so they are clickable */
+            background-color: transparent; 
+            border: 1px solid rgba(180, 151, 90, 0.6); 
             transition: all 0.3s ease;
             cursor: pointer;
             position: relative; 
         }
         
-        /* --- The Tooltip Text Setup --- */
         .nav-dot::after {
             content: attr(data-label); 
             position: absolute;
-            right: 1px; /* Moved much closer to the dot (was 20px) */
+            right: 2px;
             top: 50%;
             transform: translateY(-50%);
-            background-color: transparent; /* Removed the solid background box */
-            color: var(--main-gold); /* Text now matches your section title color */
+            transform-origin: right center;
+            display: block;
+            text-align: right;
+            background-color: transparent; 
+            color: var(--main-gold); 
             padding: 0; 
             font-size: 0.5rem;
             font-family: 'Noto Serif KR', serif; 
-            font-weight: 600; /* Added slight weight so it reads well without a background */
+            font-weight: 600; 
             letter-spacing: 1px;
             white-space: nowrap;
             opacity: 0; 
@@ -224,7 +226,7 @@
         
         /* --- When Active --- */
         .nav-dot.active {
-            background-color: var(--main-gold); /* Fills in with solid gold when active */
+            background-color: var(--main-gold);
             border-color: var(--main-gold);
             transform: scale(1.5); 
         }
@@ -232,7 +234,6 @@
         /* Show the text ONLY when active */
         .nav-dot.active::after {
             opacity: 1; 
-            /* Counteracts the dot scaling so the text stays perfectly sized */
             transform: translateY(-50%) scale(0.66); 
         }
     </style>
