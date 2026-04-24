@@ -137,9 +137,11 @@
         .contact-card { flex: 1; padding: 20px 5px; border: 1px solid var(--border-color); border-radius: 4px; }
         .bank-container { margin-top: 10px; background-color: #fbfbfb; padding: 15px 5px; border: 1px solid #f0f0f0; cursor: pointer; border-radius: 4px; font-size: 0.7rem; }
         #txt-groom-name, #txt-bride-name {
-            font-size: 0.7rem;
+            font-size: 0.8rem !important; /* Shrinks the text as you requested */
             letter-spacing: 1px;
             font-weight: 600;
+            line-height: 1.4; /* Adds a little breathing room if the name drops to the second line */
+            word-wrap: break-word; /* Ensures it drops to the next line naturally instead of squishing */
         }
         .footer { scroll-snap-align: start; padding: 60px 20px; color: #ccc; font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; min-height: 20vh; display: flex; align-items: center; justify-content: center; }
 
