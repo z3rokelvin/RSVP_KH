@@ -142,25 +142,27 @@
 
         #toast { visibility: hidden; min-width: 200px; background-color: rgba(0,0,0,0.8); color: #fff; text-align: center; border-radius: 50px; padding: 10px; position: fixed; z-index: 2000; left: 50%; bottom: 30px; transform: translateX(-50%); opacity: 0; transition: 0.3s; }
         #toast.show { visibility: visible; opacity: 1; bottom: 50px; }
+        /* 1. Add vertical spacing specifically for the map */
+        .root_daum_roughmap { 
+            margin-top: 35px !important;    /* More space between phone/address and map */
+            margin-bottom: 30px !important; /* Space below the map before the next section */
+            width: 100% !important; 
+            height: 250px !important; 
+            border-radius: 12px;            /* Slightly rounder corners for a softer look */
+            overflow: hidden; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03); /* Subtle shadow so it doesn't look flat */
+        }
+        
+        /* 2. Adjust the section to accommodate the extra space */
         #sec-date {
             min-height: auto !important; 
             height: auto !important; 
-            /* Adjust padding to provide just enough breathing room */
-            padding: 60px 30px 60px !important; 
-            /* Keep the snap point at the top of the section */
+            /* Increased bottom padding to 80px for a cleaner finish */
+            padding: 60px 30px 80px !important; 
             scroll-snap-align: start; 
         }
         
-        /* 2. Tighten the map container */
-        .root_daum_roughmap { 
-            margin-top: 20px !important; 
-            width: 100% !important; 
-            height: 250px !important; /* This is the standard compact height */
-            border-radius: 8px; 
-            overflow: hidden; 
-        }
-        
-        /* 3. Ensure the internal Kakao Map doesn't try to expand */
+        /* 3. Ensure the internal map elements stay locked to the box */
         .root_daum_roughmap .wrap_map, 
         .root_daum_roughmap .map {
             height: 250px !important;
@@ -272,7 +274,7 @@
     const translations = {
         en: {
             heroNames: "Kelvin<br>& Hesther", inviteTitle: "INVITATION",
-            inviteBody: "<p>We are getting married.</p><p>Please join us as we start our new journey together.</p><p style='font-size: 0.95rem; margin-top: 10px; color: #666;'><br><br><br>Son of <b>Lee Peng Hung & Yii Ling Hung</b><br><b style='display: block; color: #888; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 2px; margin: 5px 0 15px 0;'>Kelvin</b>Daughter of <b>Gu Hae Yong & Cui Fen Zuo</b><br><b style='display: block; color: #888; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 2px; margin-top: 5px;'>Hesther</b></p>",
+            inviteBody: "<p>We are getting married.</p><p>Please join us as we start our new journey together.</p><p style='font-size: 0.95rem; margin-top: 10px; color: #666;'><br><br><br>Eldest son of <b>Lee Peng Hung & Yii Ling Hung</b><br><b style='display: block; color: #888; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 2px; margin: 5px 0 15px 0;'>Kelvin</b>Only daughter of <b>Gu Hae Yong & Cui Fen Zuo</b><br><b style='display: block; color: #888; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 2px; margin-top: 5px;'>Hesther</b></p>",
             dateTitle: "THE WEDDING DAY", dateDisplay: "July 4th, 2026", timeDisplay: "Saturday 17:00 PM",
             days: "Days", hours: "Hrs", mins: "Mins", secs: "Secs", hotelName: "BMK Convention", hotelPhone: "042-334-1000", address: "133 Seomun-ro, Jung-gu, Daejeon",
             rsvpTitle: "CONTACT", groomRole: "GROOM", groomName: "Kelvin", groomPhone: "010-8386-1680", groomBank: "IBK bank 010-8386-1680",
@@ -281,14 +283,14 @@
         },
         cn: {
             heroNames: "李汉勇<br>& 具贤淑", inviteTitle: "诚挚邀请",
-            inviteBody: "<p>两姓联姻，一堂缔约。</p><p>诚挚邀请您见证我们的幸福时刻。</p><p style='font-size: 0.95rem; margin-top: 10px; color: #666;'><br><br><br><b>李炳雄 · 余玲凤</b> 之长男 <b>汉勇</b> <br><b>具海龙 · 崔粉祚</b> 之长女 <b>贤淑</b></p>",
+            inviteBody: "<p>两姓联姻，一堂缔约。</p><p>诚挚邀请您见证我们的幸福时刻。</p><p style='font-size: 0.95rem; margin-top: 10px; color: #666;'><br><br><br><b>李炳雄 · 余玲凤</b> 之长男 <b>汉勇</b> <br><b>具海龙 · 崔粉祚</b> 之唯嫒 <b>贤淑</b></p>",
             dateTitle: "婚礼吉日", dateDisplay: "2026年 7月 4日", timeDisplay: "星期六 下午 5:00",
             days: "天", hours: "时", mins: "分", secs: "秒", hotelName: "BMK 婚宴中心", hotelPhone: "042-334-1000", address: "大田广域市 中区 西门路 133",
             rsvpTitle: "联系我们", groomRole: "新郎", groomName: "李汉勇", groomPhone: "010-8386-1680", groomBank: "企业银行 010-8386-1680",
             brideRole: "新娘", brideName: "具贤淑", bridePhone: "010-9506-3160", brideBank: "韩亚银行 627-910204-57907",
             bankLabel: "礼金账户", copyMsg: "已复制"
         },
-        ko: {
+        ko: {l
             heroNames: "이캘빈한용<br>& 구현숙", inviteTitle: "소중한 초대",
             inviteBody: "<p>서로가 서로에게 가장 빛나는 사람이 되겠습니다.</p><p>귀한 걸음 하시어 축복해 주시면 감사하겠습니다.</p><p style='font-size: 1rem; margin-top: 10px; color: #666;'><br><br><br><b>이벼웅 · 여영봉</b> 의 장남 <b>캘빈한용</b><br><b>구해용 · 최분조</b> 의 장녀 <b>현숙‎‎‎‎ㅤㅤ</b></p>",
             dateTitle: "예식 일시", dateDisplay: "2026년 7월 4일", timeDisplay: "토요일 오후 5시",
@@ -300,7 +302,7 @@
     };
 
     let currentLang = 'en';
-
+: uppercase; letter-spacing: 2px; margin: 5px 0 15px 0;'>Kelvin</b>Daughter of <b>Gu Hae Yong & Cui Fen Zuo</b><br><b style='display: block; color: 
     function toggleMusic() {
         const audio = document.getElementById('bgMusic');
         const svgIcon = document.getElementById('musicSvg');
