@@ -236,6 +236,15 @@
             opacity: 1; 
             transform: translateY(-50%) scale(0.66); 
         }
+        /* --- Chinese Language Specific Tweaks --- */
+        body.lang-cn .bank-container {
+            font-size: 0.6rem; /* Shrinks the bank name and number (default is 0.7rem) */
+        }
+        
+        body.lang-cn #txt-bank-label-1,
+        body.lang-cn #txt-bank-label-2 {
+            font-size: 0.5rem !important; /* Shrinks the "礼金账户" label (default is 0.6rem) */
+        }
     </style>
 </head>
 <body class="lang-en">
