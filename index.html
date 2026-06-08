@@ -90,7 +90,7 @@
         .container { max-width: 480px; margin: 0 auto; background: #fff; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03); }
         .hero { position: relative; width: 100%; height: 100vh; overflow: hidden; background-color: #000; scroll-snap-align: start; }
         .hero-slideshow { position: absolute; top:0; left:0; width:100%; height:100%; z-index: 0; }
-        .hero-slide { position: absolute; top:0; left:0; width:100%; height:100%; object-fit: cover; opacity: 0; transition: opacity 2s ease-in-out; }
+        .hero-slide { position: absolute; top:0; left:0; width:100%; height:100%; object-fit: cover; object-position: center 20%; opacity: 0; transition: opacity 2s ease-in-out; }
         .hero-slide.active { opacity: 1; }
         .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; padding-bottom: 12vh; box-sizing: border-box; z-index: 2; background: linear-gradient(to bottom, transparent 60%, rgba(0,0,0,0.4) 100%); pointer-events: none; }
 
@@ -351,9 +351,24 @@
 <script>
     AOS.init({ once: true });
 
-    const driveBase = "https://drive.google.com/thumbnail?id=";
-    const heroIDs = ["1GXaSEL2Z5kswvG_FlgjW8EA1V0DM1RVo", "1hPycAGXRUZZyX6A5jXiRB1o8sErs70xL", "1GaQ3bhjRzF2ey_sbbetmuLutePJyMYHV", "1b568hISmjQSsEpXXKLWkxJBBOv6iFKDu", "1D7Bu6SCpm5f39znbLRHGJnukOUrdwWK2"];
-    const galleryIDs = ["1GXaSEL2Z5kswvG_FlgjW8EA1V0DM1RVo", "1eWlhaHNJrlJGh8xI8kZ6HuEMF1S9Q8CI", "1GaQ3bhjRzF2ey_sbbetmuLutePJyMYHV", "1b568hISmjQSsEpXXKLWkxJBBOv6iFKDu", "1D7Bu6SCpm5f39znbLRHGJnukOUrdwWK2", "1hPycAGXRUZZyX6A5jXiRB1o8sErs70xL", "16_yfv3b63vRtaAIgYuiIC9aT1puDiV_F", "1WWPAEiwmwveFncsN_RudMWCMFxHPB_2y", "1HwiNS_ZMCr3QGosK6hSfdlzUPzqNc84U", "1z4N4peyLPeZW4b2h7SCRKSOFKZwPrt_X", "1molwjz6XvtFdUW-4aQzDe-MrzePwgA9_", "1rq5TETIVfMhEHNqn3R7sjWTK4mfrs6n0", "13IeGNdNIQGqnofcKEFhRQL17TTc4jzqX"];
+    // Arrays containing the new OneDrive URLs
+    const heroURLs = [
+        "https://1drv.ms/i/c/7132db34f6c34306/IQQYk7aLYSX4TK-jd5Als9baARa-y-bvfa1LWDtpC1tnH1A?width=3136&height=2089",
+        "https://1drv.ms/i/c/7132db34f6c34306/IQTOeBFge06KQKDxaD7Ob8EtATJmtYD5NR0vn8NZwCAtw3Y?width=3345&height=5120",
+        "https://1drv.ms/i/c/7132db34f6c34306/IQQuY3Tag-PTQbbNmzkg4KBmAdQczGgZjw4e77aAj7fz-0k?width=4928&height=3361",
+        "https://1drv.ms/i/c/7132db34f6c34306/IQQVBzCoA9M-TrpAuta73JeJAQA46S099P8aO_TAk9uWHp4?width=6008&height=4008"
+    ];
+    
+    const galleryURLs = [
+        "https://1drv.ms/i/c/7132db34f6c34306/IQQGipb4wkCuQaClHOWUB77qARp4jpRKh63Dt-d0tLYVSt8?width=3415&height=5120",
+        "https://1drv.ms/i/c/7132db34f6c34306/IQSYcxbO0O8fSYwWXHGQsm5JAcLi4tz4TWazKzVuwzX-I5o?width=3406&height=5120",
+        "https://1drv.ms/i/c/7132db34f6c34306/IQQ4RnuOD18OSr00RXkdwoBhAR4jrXPzMSONC482C4S5NEc?width=4928&height=3264",
+        "https://1drv.ms/i/c/7132db34f6c34306/IQQIU-kNFn_-Q7vKlbgvbLmzAbixgKRwVH8ytlDE4V-iQQQ",
+        "https://1drv.ms/i/c/7132db34f6c34306/IQQ3enfn07eOR6aZJIkWbX6hAS_RBuDtKMD0zR149AfnR1Q?width=4928&height=3264",
+        "https://1drv.ms/i/c/7132db34f6c34306/IQSSCYrbN_WhTpRMtPrkWjvVAXFNpf_hsIwETAlgFcfl2F4?width=3264&height=4925",
+        "https://1drv.ms/i/c/7132db34f6c34306/IQTkeoO1fycORLSdQsC5zT-IAeRricspug9KHYOhJCUMnWU?width=2463&height=3285",
+        "https://1drv.ms/i/c/7132db34f6c34306/IQTmOirXDonmRKIoTNHEYHC5AUZ9O_gzCN1sTgYJ9MfRX7c?width=5120&height=3572"
+    ];
 
     const translations = {
         en: {
@@ -427,9 +442,9 @@
 
     // --- Initializing the Cover Slideshow ---
     const heroCont = document.getElementById('hero-container');
-    heroIDs.forEach((id, index) => {
+    heroURLs.forEach((url, index) => {
         const img = document.createElement('img');
-        img.src = driveBase + id + "&sz=w1500"; 
+        img.src = url; 
         img.className = 'hero-slide' + (index === 0 ? ' active' : '');
         heroCont.appendChild(img);
     });
@@ -446,9 +461,9 @@
 
     // --- Initializing the Gallery Slideshow ---
     const galleryCont = document.getElementById('gallery-container');
-    galleryIDs.forEach((id, index) => {
+    galleryURLs.forEach((url, index) => {
         const img = document.createElement('img');
-        img.src = driveBase + id + "&sz=w1200"; 
+        img.src = url; 
         img.className = 'gallery-slide' + (index === 0 ? ' active' : '');
         galleryCont.appendChild(img);
     });
