@@ -157,15 +157,40 @@
         #toast { visibility: hidden; min-width: 200px; background-color: rgba(0,0,0,0.8); color: #fff; text-align: center; border-radius: 50px; padding: 10px; position: fixed; z-index: 2000; left: 50%; bottom: 30px; transform: translateX(-50%); opacity: 0; transition: 0.3s; }
         #toast.show { visibility: visible; opacity: 1; bottom: 50px; }
         
-        /* Map Spacing */
-        .root_daum_roughmap { 
+        /* Responsive Naver Map Wrapper Styling */
+        .naver-map-container { 
             margin-top: 35px !important;    
-            margin-bottom: 30px !important; 
+            margin-bottom: 15px !important; 
             width: 100% !important; 
             height: 250px !important; 
             border-radius: 12px;            
             overflow: hidden; 
-            box-shadow: 0 2px 10px rgba(0,0,0,0.03); 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+            border: 1px solid var(--border-color);
+        }
+        
+        .map-app-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            width: 100%;
+            max-width: 200px;
+            padding: 10px 0;
+            margin-bottom: 10px;
+            border: 1px solid var(--main-gold);
+            background-color: #ffffff;
+            color: var(--main-gold);
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-decoration: none;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+        
+        .map-app-btn:active {
+            background-color: var(--bg-color);
         }
         
         #sec-date {
@@ -173,11 +198,6 @@
             height: auto !important; 
             padding: 60px 30px 80px !important; 
             scroll-snap-align: start; 
-        }
-        
-        .root_daum_roughmap .wrap_map, 
-        .root_daum_roughmap .map {
-            height: 250px !important;
         }
 
         /* --- Side Navigator Styles --- */
@@ -299,7 +319,23 @@
                 <p style="font-size: 1.3rem; color: var(--main-gold); margin-bottom: 10px;" id="txt-hotel-name"></p>
                 <p id="txt-address" onclick="copyText('txt-address')" style="font-size: 0.85rem; color: #999; cursor: pointer; margin-bottom: 0; line-height: 1.2;"></p>
                 <a id="txt-hotel-phone" href="tel:0423341000" style="text-decoration:none; color:#999; font-size:0.85rem; display:block; margin-top: 2px; line-height: 1.2;"></a>
-                <div id="daumRoughmapContainer1781172756658" class="root_daum_roughmap root_daum_roughmap_landing"></div>
+                
+                <div class="naver-map-container">
+                    <iframe 
+                        src="https://map.naver.com/v5/search/BMK%EC%9B%A8%EB%94%A9%ED%99%9B/place/33794156?c=15,0,0,0,dh"
+                        width="100%" 
+                        height="100%" 
+                        frameborder="0" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        aria-hidden="false" 
+                        tabindex="0">
+                    </iframe>
+                </div>
+                
+                <a id="btn-map-app" href="https://map.naver.com/p/entry/place/33794156" target="_blank" class="map-app-btn">
+                    MAP APP
+                </a>
             </div>
         </div>
     </div>
@@ -349,17 +385,6 @@
 </div>
 
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
-<script charset="UTF-8" class="daum_roughmap_loader_script" src="https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js"></script>
-<script charset="UTF-8">
-    new daum.roughmap.Lander({
-        "timestamp" : "1781172756658",
-        "key" : "2qs42dgq4n2u",
-        "mapWidth" : "640",
-        "mapHeight" : "250"
-    }).render();
-</script>
-
 <script>
     AOS.init({ once: true });
 
@@ -389,7 +414,7 @@
             days: "Days", hours: "Hrs", mins: "Mins", secs: "Secs", hotelName: "BMK Convention", hotelPhone: "042-334-1000", address: "133 Seomun-ro, Jung-gu, Daejeon<br>4F Austin Hall",
             rsvpTitle: "CONTACT", groomRole: "GROOM", groomName: "Kelvin", groomPhone: "010-8386-1680", groomBank: "IBK bank 010-8386-1680",
             brideRole: "BRIDE", brideName: "Hesther", bridePhone: "010-9506-3160", brideBank: "Hana Bank 627-910204-57907",
-            bankLabel: "GIFT ACCOUNT", copyMsg: "Copied!"
+            bankLabel: "GIFT ACCOUNT", copyMsg: "Copied!", mapBtnText: "NAVER MAP"
         },
         cn: {
             heroNames: "李汉勇<br>& 具贤淑", inviteTitle: "诚挚邀请",
@@ -398,16 +423,16 @@
             days: "天", hours: "时", mins: "分", secs: "秒", hotelName: "BMK 婚宴中心", hotelPhone: "042-334-1000", address: "大田广域市 中区 西门路 133<br>4F Austin Hall",
             rsvpTitle: "联系我们", groomRole: "新郎", groomName: "李汉勇", groomPhone: "010-8386-1680", groomBank: "企业银行 010-8386-1680",
             brideRole: "新娘", brideName: "具贤淑", bridePhone: "010-9506-3160", brideBank: "韩亚银行 627-910204-57907",
-            bankLabel: "礼金账户", copyMsg: "已复制"
+            bankLabel: "礼金账户", copyMsg: "已复制" , mapBtnText: "Naver 地图"
         },
         ko: {
             heroNames: "이캘빈한용<br>& 구현숙", inviteTitle: "소중한 초대",
             inviteBody: "<p>서로가 서로에게 가장 빛나는 사람이 되겠습니다.</p><p>귀한 걸음 하시어 축복해 주시면 감사하겠습니다.</p><p style='font-size: 1rem; margin-top: 10px; color: #666;'><br><br><br><b>이병웅 · 여영봉</b> 의 장남 <b>캘빈한용</b><br><b>구해용 · 최분조</b> 의 장녀 <b>현숙ㅤㅤ</b></p>",
             dateTitle: "예식 일시", dateDisplay: "2026년 7월 4일", timeDisplay: "토요일 오후 5시",
-            days: "일", 단어: "시간", mins: "분", secs: "초", hotelName: "BMK 웨딩컨벤션", hotelPhone: "042-334-1000", address: "대전 중구 서문로 133<br>4F 아스틴홀",
+            days: "일", hours: "시간", mins: "분", secs: "초", hotelName: "BMK 웨딩컨벤션", hotelPhone: "042-334-1000", address: "대전 중구 서문로 133<br>4F 아스틴홀",
             rsvpTitle: "마음 전하실 곳", groomRole: "신랑", groomName: "<span style='font-size: 0.8rem; line-height: 1.4; word-wrap: break-word;'>KELVIN LEE HAN YONG</span>", groomPhone: "010-8386-1680", groomBank: "기업은행 010-8386-1680",
             brideRole: "신부", brideName: "구현숙", bridePhone: "010-9506-3160", brideBank: "하나은행 627-910204-57907",
-            bankLabel: "계좌번호", copyMsg: "복사되었습니다"
+            bankLabel: "계좌번호", copyMsg: "복사되었습니다", mapBtnText: "네이버 지도 앱"
         }
     };
 
@@ -449,6 +474,7 @@
         document.getElementById('txt-bride-bank').innerText = t.brideBank;
         document.getElementById('txt-bank-label-1').innerText = t.bankLabel;
         document.getElementById('txt-bank-label-2').innerText = t.bankLabel;
+        document.getElementById('btn-map-app').innerText = t.mapBtnText;
     }
 
     const heroCont = document.getElementById('hero-container');
