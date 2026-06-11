@@ -299,7 +299,7 @@
                 <p style="font-size: 1.3rem; color: var(--main-gold); margin-bottom: 10px;" id="txt-hotel-name"></p>
                 <p id="txt-address" onclick="copyText('txt-address')" style="font-size: 0.85rem; color: #999; cursor: pointer; margin-bottom: 0; line-height: 1.2;"></p>
                 <a id="txt-hotel-phone" href="tel:0423341000" style="text-decoration:none; color:#999; font-size:0.85rem; display:block; margin-top: 2px; line-height: 1.2;"></a>
-                <div id="daumRoughmapContainer1764037005479" class="root_daum_roughmap root_daum_roughmap_landing"></div>
+                <div id="daumRoughmapContainer1781172756658" class="root_daum_roughmap root_daum_roughmap_landing"></div>
             </div>
         </div>
     </div>
@@ -349,6 +349,17 @@
 </div>
 
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+<script charset="UTF-8" class="daum_roughmap_loader_script" src="https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js"></script>
+<script charset="UTF-8">
+    new daum.roughmap.Lander({
+        "timestamp" : "1781172756658",
+        "key" : "2qs42dgq4n2u",
+        "mapWidth" : "640",
+        "mapHeight" : "250"
+    }).render();
+</script>
+
 <script>
     AOS.init({ once: true });
 
@@ -393,7 +404,7 @@
             heroNames: "이캘빈한용<br>& 구현숙", inviteTitle: "소중한 초대",
             inviteBody: "<p>서로가 서로에게 가장 빛나는 사람이 되겠습니다.</p><p>귀한 걸음 하시어 축복해 주시면 감사하겠습니다.</p><p style='font-size: 1rem; margin-top: 10px; color: #666;'><br><br><br><b>이병웅 · 여영봉</b> 의 장남 <b>캘빈한용</b><br><b>구해용 · 최분조</b> 의 장녀 <b>현숙ㅤㅤ</b></p>",
             dateTitle: "예식 일시", dateDisplay: "2026년 7월 4일", timeDisplay: "토요일 오후 5시",
-            days: "일", hours: "시간", mins: "분", secs: "초", hotelName: "BMK 웨딩컨벤션", hotelPhone: "042-334-1000", address: "대전 중구 서문로 133<br>4F 아스틴홀",
+            days: "일", 단어: "시간", mins: "분", secs: "초", hotelName: "BMK 웨딩컨벤션", hotelPhone: "042-334-1000", address: "대전 중구 서문로 133<br>4F 아스틴홀",
             rsvpTitle: "마음 전하실 곳", groomRole: "신랑", groomName: "<span style='font-size: 0.8rem; line-height: 1.4; word-wrap: break-word;'>KELVIN LEE HAN YONG</span>", groomPhone: "010-8386-1680", groomBank: "기업은행 010-8386-1680",
             brideRole: "신부", brideName: "구현숙", bridePhone: "010-9506-3160", brideBank: "하나은행 627-910204-57907",
             bankLabel: "계좌번호", copyMsg: "복사되었습니다"
@@ -567,30 +578,6 @@
     }, observerOptions);
 
     sections.forEach(sec => sectionObserver.observe(sec));
-
-    // --- Lazy Load Daum Map ---
-    const mapSection = document.getElementById('sec-date');
-    const mapObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const script = document.createElement('script');
-                script.src = "https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js";
-                script.charset = "UTF-8";
-                script.onload = () => {
-                    new daum.roughmap.Lander({
-                        "timestamp": "1764037005479",
-                        "key": "crv6tdzjsz3",
-                        "mapWidth": "640",
-                        "mapHeight": "360"
-                    }).render();
-                };
-                document.body.appendChild(script);
-                observer.unobserve(entry.target);
-            }
-        });
-    }, { rootMargin: '300px' });
-
-    mapObserver.observe(mapSection);
 </script>
 
 </body>
