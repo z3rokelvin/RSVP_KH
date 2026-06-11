@@ -12,6 +12,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Noto+Serif+KR:wght@200;300;400;600&family=Noto+Serif+SC:wght@200;300;400;600&display=swap" rel="stylesheet">
     
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <link rel="preload" as="image" href="https://1drv.ms/i/c/7132db34f6c34306/IQQYk7aLYSX4TK-jd5Als9baARa-y-bvfa1LWDtpC1tnH1A?width=1080&height=720">
 
     <style>
         :root {
@@ -103,21 +105,21 @@
         #sec-invite, #sec-contact {
             min-height: auto !important;
             height: auto !important;
-            padding: 80px 30px 80px !important; /* Increased from 60px */
+            padding: 80px 30px 80px !important; 
             scroll-snap-align: start;
         }
 
         #sec-gallery {
             min-height: auto !important;
             height: auto !important;
-            padding: 80px 30px 60px !important; /* Increased from 60px */
+            padding: 80px 30px 60px !important; 
             scroll-snap-align: start;
         }
         
         .gallery-slideshow {
             position: relative;
             width: 100%;
-            height: 300px !important; /* Reduced from 450px */
+            height: 300px !important; 
             overflow: hidden;
             background-color: transparent;
         }     
@@ -139,7 +141,7 @@
 
         @media (max-width: 480px) {
             .gallery-slideshow {
-                height: 250px !important; /* Reduced from 350px */
+                height: 250px !important; 
             }
         }
         
@@ -238,12 +240,12 @@
         }
         /* --- Chinese Language Specific Tweaks --- */
         body.lang-cn .bank-container {
-            font-size: 0.6rem; /* Shrinks the bank name and number (default is 0.7rem) */
+            font-size: 0.6rem; 
         }
         
         body.lang-cn #txt-bank-label-1,
         body.lang-cn #txt-bank-label-2 {
-            font-size: 0.5rem !important; /* Shrinks the "礼金账户" label (default is 0.6rem) */
+            font-size: 0.5rem !important; 
         }
     </style>
 </head>
@@ -351,23 +353,23 @@
 <script>
     AOS.init({ once: true });
 
-    // Arrays containing the new OneDrive URLs
+    // Step 1: Scaled-down Image Request Dimensions
     const heroURLs = [
-        "https://1drv.ms/i/c/7132db34f6c34306/IQQYk7aLYSX4TK-jd5Als9baARa-y-bvfa1LWDtpC1tnH1A?width=3136&height=2089",
-        "https://1drv.ms/i/c/7132db34f6c34306/IQTOeBFge06KQKDxaD7Ob8EtATJmtYD5NR0vn8NZwCAtw3Y?width=3345&height=5120",
-        "https://1drv.ms/i/c/7132db34f6c34306/IQQuY3Tag-PTQbbNmzkg4KBmAdQczGgZjw4e77aAj7fz-0k?width=4928&height=3361",
-        "https://1drv.ms/i/c/7132db34f6c34306/IQQVBzCoA9M-TrpAuta73JeJAQA46S099P8aO_TAk9uWHp4?width=6008&height=4008"
+        "https://1drv.ms/i/c/7132db34f6c34306/IQQYk7aLYSX4TK-jd5Als9baARa-y-bvfa1LWDtpC1tnH1A?width=1080&height=720",
+        "https://1drv.ms/i/c/7132db34f6c34306/IQTOeBFge06KQKDxaD7Ob8EtATJmtYD5NR0vn8NZwCAtw3Y?width=1080&height=1653",
+        "https://1drv.ms/i/c/7132db34f6c34306/IQQuY3Tag-PTQbbNmzkg4KBmAdQczGgZjw4e77aAj7fz-0k?width=1080&height=736",
+        "https://1drv.ms/i/c/7132db34f6c34306/IQQVBzCoA9M-TrpAuta73JeJAQA46S099P8aO_TAk9uWHp4?width=1080&height=720"
     ];
     
     const galleryURLs = [
-        "https://1drv.ms/i/c/7132db34f6c34306/IQQGipb4wkCuQaClHOWUB77qARp4jpRKh63Dt-d0tLYVSt8?width=3415&height=5120",
-        "https://1drv.ms/i/c/7132db34f6c34306/IQSYcxbO0O8fSYwWXHGQsm5JAcLi4tz4TWazKzVuwzX-I5o?width=3406&height=5120",
-        "https://1drv.ms/i/c/7132db34f6c34306/IQQ4RnuOD18OSr00RXkdwoBhAR4jrXPzMSONC482C4S5NEc?width=4928&height=3264",
-        "https://1drv.ms/i/c/7132db34f6c34306/IQQIU-kNFn_-Q7vKlbgvbLmzAbixgKRwVH8ytlDE4V-iQQQ",
-        "https://1drv.ms/i/c/7132db34f6c34306/IQQ3enfn07eOR6aZJIkWbX6hAS_RBuDtKMD0zR149AfnR1Q?width=4928&height=3264",
-        "https://1drv.ms/i/c/7132db34f6c34306/IQSSCYrbN_WhTpRMtPrkWjvVAXFNpf_hsIwETAlgFcfl2F4?width=3264&height=4925",
-        "https://1drv.ms/i/c/7132db34f6c34306/IQTkeoO1fycORLSdQsC5zT-IAeRricspug9KHYOhJCUMnWU?width=2463&height=3285",
-        "https://1drv.ms/i/c/7132db34f6c34306/IQTmOirXDonmRKIoTNHEYHC5AUZ9O_gzCN1sTgYJ9MfRX7c?width=5120&height=3572"
+        "https://1drv.ms/i/c/7132db34f6c34306/IQQGipb4wkCuQaClHOWUB77qARp4jpRKh63Dt-d0tLYVSt8?width=1080&height=1619",
+        "https://1drv.ms/i/c/7132db34f6c34306/IQSYcxbO0O8fSYwWXHGQsm5JAcLi4tz4TWazKzVuwzX-I5o?width=1080&height=1623",
+        "https://1drv.ms/i/c/7132db34f6c34306/IQQ4RnuOD18OSr00RXkdwoBhAR4jrXPzMSONC482C4S5NEc?width=1080&height=715",
+        "https://1drv.ms/i/c/7132db34f6c34306/IQQIU-kNFn_-Q7vKlbgvbLmzAbixgKRwVH8ytlDE4V-iQQQ?width=1080",
+        "https://1drv.ms/i/c/7132db34f6c34306/IQQ3enfn07eOR6aZJIkWbX6hAS_RBuDtKMD0zR149AfnR1Q?width=1080&height=715",
+        "https://1drv.ms/i/c/7132db34f6c34306/IQSSCYrbN_WhTpRMtPrkWjvVAXFNpf_hsIwETAlgFcfl2F4?width=1080&height=1630",
+        "https://1drv.ms/i/c/7132db34f6c34306/IQTkeoO1fycORLSdQsC5zT-IAeRricspug9KHYOhJCUMnWU?width=1080&height=1440",
+        "https://1drv.ms/i/c/7132db34f6c34306/IQTmOirXDonmRKIoTNHEYHC5AUZ9O_gzCN1sTgYJ9MfRX7c?width=1080&height=753"
     ];
 
     const translations = {
@@ -459,11 +461,12 @@
         }
     }, 5000);
 
-    // --- Initializing the Gallery Slideshow ---
+    // --- Step 2: Implement Lazy Loading for Gallery Slideshow ---
     const galleryCont = document.getElementById('gallery-container');
     galleryURLs.forEach((url, index) => {
         const img = document.createElement('img');
         img.src = url; 
+        img.loading = "lazy"; // Instructs the browser to lazy load
         img.className = 'gallery-slide' + (index === 0 ? ' active' : '');
         galleryCont.appendChild(img);
     });
@@ -553,6 +556,7 @@
     window.addEventListener('scroll', enableAutoplay);
     window.addEventListener('touchstart', enableAutoplay);
     document.addEventListener('click', enableAutoplay);
+    
     // --- On Page Load ---
     window.addEventListener('load', () => {
         setLanguage('en');
