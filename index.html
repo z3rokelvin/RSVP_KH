@@ -24,7 +24,6 @@
             --border-color: #e6e2d8;   
         }
 
-        /* --- Scroll Snapping Setup --- */
         html { 
             scroll-behavior: smooth; 
             height: 100%;
@@ -45,7 +44,6 @@
         body.lang-cn { font-family: 'Noto Serif SC', serif; letter-spacing: 1px; }
         body.lang-ko { font-family: 'Noto Serif KR', serif; letter-spacing: 0.5px; }
 
-        /* --- 1. Falling Starlight Effect --- */
         .starlight-container {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -65,7 +63,6 @@
             100% { transform: translateY(100vh) scale(1.2); opacity: 0; }
         }
         
-        /* --- Audio Button --- */
         .music-control {
             position: fixed; top: 85px; right: 20px; z-index: 1100;
             width: 38px; height: 38px; cursor: pointer;
@@ -78,7 +75,6 @@
         .rotating { animation: rotateMusic 4s linear infinite; }
         @keyframes rotateMusic { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-        /* --- Lang Bar --- */
         .lang-bar {
             position: fixed; top: 0; left: 0; width: 100%;
             background: rgba(249, 248, 246, 0.95); backdrop-filter: blur(10px);
@@ -88,7 +84,6 @@
         .lang-btn { border: none; background: none; font-size: 0.85rem; color: #aaa; cursor: pointer; padding: 5px 0; letter-spacing: 2px; text-transform: uppercase; }
         .lang-btn.active { color: var(--main-gold); border-bottom: 1px solid var(--main-gold); }
 
-        /* --- UI Containers --- */
         .container { max-width: 480px; margin: 0 auto; background: #fff; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03); }
         .hero { position: relative; width: 100%; height: 100vh; overflow: hidden; background-color: #000; scroll-snap-align: start; }
         .hero-slideshow { position: absolute; top:0; left:0; width:100%; height:100%; z-index: 0; }
@@ -157,6 +152,42 @@
         #toast { visibility: hidden; min-width: 200px; background-color: rgba(0,0,0,0.8); color: #fff; text-align: center; border-radius: 50px; padding: 10px; position: fixed; z-index: 2000; left: 50%; bottom: 30px; transform: translateX(-50%); opacity: 0; transition: 0.3s; }
         #toast.show { visibility: visible; opacity: 1; bottom: 50px; }
         
+        /* Kakao Map Styling */
+        .kakao-map-container { 
+            margin-top: 35px !important;    
+            margin-bottom: 15px !important; 
+            width: 100% !important; 
+            height: 250px !important; 
+            border-radius: 12px;            
+            overflow: hidden; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+            border: 1px solid var(--border-color);
+        }
+        
+        .map-app-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            width: 100%;
+            max-width: 200px;
+            padding: 10px 0;
+            margin-bottom: 10px;
+            border: 1px solid var(--main-gold);
+            background-color: #ffffff;
+            color: var(--main-gold);
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-decoration: none;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+        
+        .map-app-btn:active {
+            background-color: var(--bg-color);
+        }
+        
         #sec-date {
             min-height: auto !important; 
             height: auto !important; 
@@ -164,7 +195,6 @@
             scroll-snap-align: start; 
         }
 
-        /* --- Side Navigator Styles --- */
         .side-nav {
             position: fixed;
             right: 10px;
@@ -210,27 +240,19 @@
             transition: opacity 0.3s ease, transform 0.3s ease;
         }
         
-        /* --- When Active --- */
         .nav-dot.active {
             background-color: var(--main-gold);
             border-color: var(--main-gold);
             transform: scale(1.5); 
         }
         
-        /* Show the text ONLY when active */
         .nav-dot.active::after {
             opacity: 1; 
             transform: translateY(-50%) scale(0.66); 
         }
-        /* --- Chinese Language Specific Tweaks --- */
-        body.lang-cn .bank-container {
-            font-size: 0.6rem; 
-        }
         
-        body.lang-cn #txt-bank-label-1,
-        body.lang-cn #txt-bank-label-2 {
-            font-size: 0.5rem !important; 
-        }
+        body.lang-cn .bank-container { font-size: 0.6rem; }
+        body.lang-cn #txt-bank-label-1, body.lang-cn #txt-bank-label-2 { font-size: 0.5rem !important; }
     </style>
 </head>
 <body class="lang-en">
@@ -239,9 +261,9 @@
     <source src="https://archive.org/download/22JohannPachelbelCanonInDMajor1694/22%20Johann%20Pachelbel%20-%20Canon%20in%20D%20Major%2C1694.mp3" type="audio/mpeg">
 </audio>
 
-<div class="music-control rotating" onclick="toggleMusic()" id="musicBtn">
+<div class="music-control" onclick="toggleMusic()" id="musicBtn">
     <svg id="musicSvg" class="music-icon" viewBox="0 0 24 24">
-        <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+        <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
     </svg>
 </div>
 
@@ -284,26 +306,11 @@
                 <p id="txt-address" onclick="copyText('txt-address')" style="font-size: 0.85rem; color: #999; cursor: pointer; margin-bottom: 0; line-height: 1.2;"></p>
                 <a id="txt-hotel-phone" href="tel:0423341000" style="text-decoration:none; color:#999; font-size:0.85rem; display:block; margin-top: 2px; line-height: 1.2;"></a>
                 
-                <div style="font:normal normal 400 12px/normal dotum, sans-serif; width:100%; max-width:640px; color:#333; position:relative; margin: 35px auto 15px auto; box-shadow: 0 2px 10px rgba(0,0,0,0.03);">
-                    <div style="height: auto;">
-                        <a href="https://map.kakao.com/?urlX=590939.0000000012&amp;urlY=784024.9999999977&amp;itemId=22301957&amp;q=%EB%8D%94BMK%EC%BB%A8%EB%B2%A4%EC%85%98&amp;srcid=22301957&amp;map_type=TYPE_MAP&amp;from=roughmap" target="_blank">
-                            <img class="map" src="http://t1.daumcdn.net/roughmap/imgmap/0926c290e9d7bd8984cbfb0f14b0a5b05118a63ea4aaf4677e05a2cf711c10c6" width="100%" style="border:1px solid #e6e2d8; border-radius: 8px 8px 0 0; display: block; box-sizing: border-box;">
-                        </a>
-                    </div>
-                    <div style="overflow: hidden; padding: 10px 11px; border: 1px solid var(--border-color); border-top: none; border-radius: 0px 0px 8px 8px; background-color: rgb(249, 249, 249); text-align: left;">
-                        <a href="https://map.kakao.com" target="_blank" style="float: left;">
-                            <img src="//t1.kakaocdn.net/localimg/localimages/07/2018/pc/common/logo_kakaomap.png" width="72" height="16" alt="카카오맵" style="display:block;width:72px;height:16px">
-                        </a>
-                        <div style="float: right; position: relative; top: 1px; font-size: 11px;">
-                            <a target="_blank" href="https://map.kakao.com/?from=roughmap&amp;srcid=22301957&amp;confirmid=22301957&amp;q=%EB%8D%94BMK%EC%BB%A8%EB%B2%A4%EC%85%98&amp;rv=on" style="float:left;height:15px;padding-top:1px;line-height:15px;color:#000;text-decoration: none;">로드뷰</a>
-                            <span style="width: 1px;padding: 0;margin: 0 8px 0 9px;height: 11px;vertical-align: top;position: relative;top: 2px;border-left: 1px solid #d0d0d0;float: left;"></span>
-                            <a target="_blank" href="https://map.kakao.com/?from=roughmap&amp;eName=%EB%8D%94BMK%EC%BB%A8%EB%B2%A4%EC%85%98&amp;eX=590939.0000000012&amp;eY=784024.9999999977" style="float:left;height:15px;padding-top:1px;line-height:15px;color:#000;text-decoration: none;">길찾기</a>
-                            <span style="width: 1px;padding: 0;margin: 0 8px 0 9px;height: 11px;vertical-align: top;position: relative;top: 2px;border-left: 1px solid #d0d0d0;float: left;"></span>
-                            <a target="_blank" href="https://map.kakao.com?map_type=TYPE_MAP&amp;from=roughmap&amp;srcid=22301957&amp;itemId=22301957&amp;q=%EB%8D%94BMK%EC%BB%A8%EB%B2%A4%EC%85%98&amp;urlX=590939.0000000012&amp;urlY=784024.9999999977" style="float:left;height:15px;padding-top:1px;line-height:15px;color:#000;text-decoration: none;">지도 크게 보기</a>
-                        </div>
-                    </div>
-                </div>
+                <div id="map" class="kakao-map-container"></div>
                 
+                <a id="btn-map-app" href="https://place.map.kakao.com/22301957" target="_blank" class="map-app-btn">
+                    KAKAO MAP
+                </a>
             </div>
         </div>
     </div>
@@ -353,6 +360,9 @@
 </div>
 
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=YOUR_KAKAO_JAVASCRIPT_KEY"></script>
+
 <script>
     AOS.init({ once: true });
 
@@ -382,7 +392,7 @@
             days: "Days", hours: "Hrs", mins: "Mins", secs: "Secs", hotelName: "BMK Convention", hotelPhone: "042-334-1000", address: "133 Seomun-ro, Jung-gu, Daejeon<br>4F Austin Hall",
             rsvpTitle: "CONTACT", groomRole: "GROOM", groomName: "Kelvin", groomPhone: "010-8386-1680", groomBank: "IBK bank 010-8386-1680",
             brideRole: "BRIDE", brideName: "Hesther", bridePhone: "010-9506-3160", brideBank: "Hana Bank 627-910204-57907",
-            bankLabel: "GIFT ACCOUNT", copyMsg: "Copied!"
+            bankLabel: "GIFT ACCOUNT", copyMsg: "Copied!", mapBtnText: "KAKAO MAP"
         },
         cn: {
             heroNames: "李汉勇<br>& 具贤淑", inviteTitle: "诚挚邀请",
@@ -391,7 +401,7 @@
             days: "天", hours: "时", mins: "分", secs: "秒", hotelName: "BMK 婚宴中心", hotelPhone: "042-334-1000", address: "大田广域市 中区 西门路 133<br>4F Austin Hall",
             rsvpTitle: "联系我们", groomRole: "新郎", groomName: "李汉勇", groomPhone: "010-8386-1680", groomBank: "企业银行 010-8386-1680",
             brideRole: "新娘", brideName: "具贤淑", bridePhone: "010-9506-3160", brideBank: "韩亚银行 627-910204-57907",
-            bankLabel: "礼金账户", copyMsg: "已复制"
+            bankLabel: "礼金账户", copyMsg: "已复制" , mapBtnText: "Kakao 地图"
         },
         ko: {
             heroNames: "이캘빈한용<br>& 구현숙", inviteTitle: "소중한 초대",
@@ -400,7 +410,7 @@
             days: "일", hours: "시간", mins: "분", secs: "초", hotelName: "BMK 웨딩컨벤션", hotelPhone: "042-334-1000", address: "대전 중구 서문로 133<br>4F 아스틴홀",
             rsvpTitle: "마음 전하실 곳", groomRole: "신랑", groomName: "<span style='font-size: 0.8rem; line-height: 1.4; word-wrap: break-word;'>KELVIN LEE HAN YONG</span>", groomPhone: "010-8386-1680", groomBank: "기업은행 010-8386-1680",
             brideRole: "신부", brideName: "구현숙", bridePhone: "010-9506-3160", brideBank: "하나은행 627-910204-57907",
-            bankLabel: "계좌번호", copyMsg: "복사되었습니다"
+            bankLabel: "계좌번호", copyMsg: "복사되었습니다", mapBtnText: "카카오맵 앱"
         }
     };
 
@@ -409,19 +419,22 @@
     function toggleMusic() {
         const audio = document.getElementById('bgMusic');
         const svgIcon = document.getElementById('musicSvg');
+        const btn = document.getElementById('musicBtn');
         
-        // Music Note Path (Playing)
-        const playPath = "M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z";
+        // Volume Up Path (Playing)
+        const playPath = "M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z";
         
-        // Muted Music Note Path (Paused)
+        // Volume Mute Path (Paused)
         const mutedPath = "M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z";
         
         if (audio.paused) { 
             audio.play(); 
             svgIcon.innerHTML = `<path d="${playPath}"/>`; 
+            btn.classList.add('rotating');
         } else { 
             audio.pause(); 
             svgIcon.innerHTML = `<path d="${mutedPath}"/>`; 
+            btn.classList.remove('rotating');
         }
     }
 
@@ -452,6 +465,7 @@
         document.getElementById('txt-bride-bank').innerText = t.brideBank;
         document.getElementById('txt-bank-label-1').innerText = t.bankLabel;
         document.getElementById('txt-bank-label-2').innerText = t.bankLabel;
+        document.getElementById('btn-map-app').innerText = t.mapBtnText;
     }
 
     const heroCont = document.getElementById('hero-container');
@@ -538,12 +552,14 @@
     
     function enableAutoplay() {
         const audio = document.getElementById('bgMusic');
+        const btn = document.getElementById('musicBtn');
         if (!audio.paused) return; 
 
         audio.play().then(() => {
             const svgIcon = document.getElementById('musicSvg');
-            const playPath = "M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z";
+            const playPath = "M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z";
             svgIcon.innerHTML = `<path d="${playPath}"/>`;
+            btn.classList.add('rotating');
             window.removeEventListener('scroll', enableAutoplay);
             window.removeEventListener('touchstart', enableAutoplay);
             document.removeEventListener('click', enableAutoplay);
@@ -554,10 +570,34 @@
     window.addEventListener('touchstart', enableAutoplay);
     document.addEventListener('click', enableAutoplay);
     
-    // --- Instant Initialization for Text & Stars ---
     document.addEventListener('DOMContentLoaded', () => {
         setLanguage('en');
         createStars();
+    });
+
+    // --- Initialize Kakao Map ---
+    window.addEventListener('load', () => {
+        if(typeof kakao !== 'undefined' && kakao.maps) {
+            var mapContainer = document.getElementById('map'); // 지도를 표시할 div 
+            var mapOption = { 
+                center: new kakao.maps.LatLng(36.3198665, 127.405359), // 지도의 중심좌표 (BMK Convention)
+                level: 3 // 지도의 확대 레벨
+            };
+
+            // 지도를 생성합니다
+            var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+            // 마커가 표시될 위치입니다 
+            var markerPosition = new kakao.maps.LatLng(36.3198665, 127.405359); 
+
+            // 마커를 생성합니다
+            var marker = new kakao.maps.Marker({
+                position: markerPosition
+            });
+
+            // 마커가 지도 위에 표시되도록 설정합니다
+            marker.setMap(map);
+        }
     });
 
     const sections = document.querySelectorAll('.hero, .section');
