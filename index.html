@@ -252,7 +252,7 @@
 <body class="lang-en">
     
 <audio id="bgMusic" loop>
-    <source src="https://archive.org/download/PachelbelCanonInDMajor/Pachelbel_%20Canon%20-%20In%20D%20Major.mp3" type="audio/mpeg">
+    <source src="https://archive.org/download/22JohannPachelbelCanonInDMajor1694/22%20Johann%20Pachelbel%20-%20Canon%20in%20D%20Major%2C1694.mp3" type="audio/mpeg">
 </audio>
 
 <div class="music-control rotating" onclick="toggleMusic()" id="musicBtn">
@@ -349,11 +349,9 @@
 </div>
 
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script charset="UTF-8" src="https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js"></script>
 <script>
     AOS.init({ once: true });
 
-    // Step 1: Scaled-down Image Request Dimensions
     const heroURLs = [
         "https://1drv.ms/i/c/7132db34f6c34306/IQQYk7aLYSX4TK-jd5Als9baARa-y-bvfa1LWDtpC1tnH1A?width=1080&height=720",
         "https://1drv.ms/i/c/7132db34f6c34306/IQTOeBFge06KQKDxaD7Ob8EtATJmtYD5NR0vn8NZwCAtw3Y?width=1080&height=1653",
@@ -442,7 +440,6 @@
         document.getElementById('txt-bank-label-2').innerText = t.bankLabel;
     }
 
-    // --- Initializing the Cover Slideshow ---
     const heroCont = document.getElementById('hero-container');
     heroURLs.forEach((url, index) => {
         const img = document.createElement('img');
@@ -461,12 +458,11 @@
         }
     }, 5000);
 
-    // --- Step 2: Implement Lazy Loading for Gallery Slideshow ---
     const galleryCont = document.getElementById('gallery-container');
     galleryURLs.forEach((url, index) => {
         const img = document.createElement('img');
         img.src = url; 
-        img.loading = "lazy"; // Instructs the browser to lazy load
+        img.loading = "lazy";
         img.className = 'gallery-slide' + (index === 0 ? ' active' : '');
         galleryCont.appendChild(img);
     });
@@ -482,7 +478,6 @@
     }
     setInterval(playGallery, 5000);
 
-    // --- Countdown Timer ---
     const weddingDate = new Date("2026-07-04T17:00:00").getTime();
     setInterval(() => {
         const now = new Date().getTime();
@@ -500,7 +495,6 @@
         `;
     }, 1000);
 
-    // --- Utility Functions ---
     function copyText(id) {
         const txt = document.getElementById(id).innerText;
         navigator.clipboard.writeText(txt).then(() => {
@@ -515,7 +509,7 @@
         const container = document.createElement('div');
         container.className = 'starlight-container';
         document.body.appendChild(container);
-        for (let i = 0; i < 40; i++) {
+        for (let i = 0; i < 15; i++) {
             let star = document.createElement('div');
             star.className = 'star';
             let size = Math.random() * 2.5 + 1; 
@@ -528,59 +522,43 @@
         }
     }
     
-    // --- Autoplay Music on First Interaction ---
     function enableAutoplay() {
         const audio = document.getElementById('bgMusic');
-        
-        // If it's already playing, do nothing
         if (!audio.paused) return; 
 
-        // Attempt to play the audio
         audio.play().then(() => {
-            // Success! Update the button icon to the "playing" state
             const svgIcon = document.getElementById('musicSvg');
             const playPath = "M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z";
             svgIcon.innerHTML = `<path d="${playPath}"/>`;
-            
-            // Once it successfully starts, stop listening for the first touch/scroll
             window.removeEventListener('scroll', enableAutoplay);
             window.removeEventListener('touchstart', enableAutoplay);
             document.removeEventListener('click', enableAutoplay);
-        }).catch((error) => {
-            // If the browser blocks it (e.g., Apple's strict policies), 
-            // it will silently fail and try again on the next scroll or tap.
-        });
+        }).catch(() => {});
     }
 
-    // Listen for any interaction to trigger the music
     window.addEventListener('scroll', enableAutoplay);
     window.addEventListener('touchstart', enableAutoplay);
     document.addEventListener('click', enableAutoplay);
     
-    // --- On Page Load ---
-    window.addEventListener('load', () => {
+    // --- Instant Initialization for Text & Stars ---
+    document.addEventListener('DOMContentLoaded', () => {
         setLanguage('en');
         createStars();
-        new daum.roughmap.Lander({"timestamp":"1764037005479","key":"crv6tdzjsz3","mapWidth":"640","mapHeight":"360"}).render();
     });
 
-    // --- Side Navigator Logic ---
     const sections = document.querySelectorAll('.hero, .section');
     const navDots = document.querySelectorAll('.nav-dot');
 
     const observerOptions = {
         root: null,
         rootMargin: '0px',
-        threshold: 0.5 // Triggers when half the section is visible
+        threshold: 0.5
     };
 
     const sectionObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                // Remove active class from all
                 navDots.forEach(dot => dot.classList.remove('active'));
-                
-                // Add active class to the correct dot
                 const id = entry.target.getAttribute('id');
                 const activeDot = document.querySelector(`.nav-dot[href="#${id}"]`);
                 if (activeDot) activeDot.classList.add('active');
@@ -589,6 +567,30 @@
     }, observerOptions);
 
     sections.forEach(sec => sectionObserver.observe(sec));
+
+    // --- Lazy Load Daum Map ---
+    const mapSection = document.getElementById('sec-date');
+    const mapObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const script = document.createElement('script');
+                script.src = "https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js";
+                script.charset = "UTF-8";
+                script.onload = () => {
+                    new daum.roughmap.Lander({
+                        "timestamp": "1764037005479",
+                        "key": "crv6tdzjsz3",
+                        "mapWidth": "640",
+                        "mapHeight": "360"
+                    }).render();
+                };
+                document.body.appendChild(script);
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { rootMargin: '300px' });
+
+    mapObserver.observe(mapSection);
 </script>
 
 </body>
